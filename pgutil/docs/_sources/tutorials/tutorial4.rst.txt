@@ -1,0 +1,31 @@
+.. _header-n0:
+
+4. Playground - 基本図形の描画
+==============================
+
+.. code:: python
+
+   import pgutil
+
+   pg = pgutil.Playground()
+
+   # 毎フレーム画面を塗りつぶすように設定
+   pg.fill = True
+
+   while pg.run():
+   # 直線の描画
+   pg.draw.line((0, 255, 0), (300, 300), (400, 450), 3)
+   # 長方形の描画
+   pg.draw.rect((0, 0, 255), (100, 300, 100, 150))
+   # マウスカーソルの位置に円を描画
+   pg.draw.circle((255, 0, 0), pg.mouse, 80)
+
+Playgroundでは基本図形の描画は\ ``Playground.draw``\ または\ ``Playground.gfxdraw``\ 以下の名前空間の関数を使用して行います.
+これらの名前空間はpygameにおける\ `drawモジュール <http://westplain.sakuraweb.com/translate/pygame/Draw.cgi>`__\ と\ `gfxdrawモジュール <http://westplain.sakuraweb.com/translate/pygame/Gfxdraw.cgi>`__\ に対応しています.
+それぞれの関数の詳細な使い方は\ `DrawWrapper
+リファレンス <../pgutil.html#pgutil._drawutil.DrawWrapper>`__\ 及び\ `GfxWrapper
+リファレンス <../pgutil.html#pgutil._drawutil.GfxWrapper>`__\ を確認してください.
+
+``Playground.fill``\ は画面の塗りつぶしを管理するフラグでTrueの場合\ ``Playground.back_col``\ で指定された色で毎フレーム画面を塗りつぶして初期化します.
+``Playground.fill``\ がFalseの場合,
+画面の更新時に塗りつぶしが行われず、2フレーム以降の描画はその前のフレームの内容を上書きしたものとなります.

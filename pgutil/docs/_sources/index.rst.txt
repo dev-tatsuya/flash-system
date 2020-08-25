@@ -1,0 +1,39 @@
+.. pgutil documentation master file, created by
+   sphinx-quickstart on Mon Jan  7 16:13:18 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to pgutil's documentation!
+==================================
+
+Code Reference
+==============
+
+.. toctree::
+   :maxdepth: 4
+
+   pgutil
+
+Tutorial
+========
+
+.. toctree::
+   :maxdepth: 4
+
+   tutorials/tutorial0
+   tutorials/tutorial1
+   tutorials/tutorial2
+   tutorials/tutorial3
+   tutorials/tutorial4
+   tutorials/tutorial5
+   tutorials/tutorial6
+   tutorials/tutorial7
+   tutorials/tutorial8
+   tutorials/tutorial9
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

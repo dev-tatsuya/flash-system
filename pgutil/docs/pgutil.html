@@ -1,0 +1,1907 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pgutil リファレンス &#8212; pgutil 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="0. はじめに" href="tutorials/tutorial0.html" />
+    <link rel="prev" title="Welcome to pgutil&#39;s documentation!" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorials/tutorial0.html" title="0. はじめに"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to pgutil&#39;s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pgutil">
+<h1>pgutil リファレンス<a class="headerlink" href="#pgutil" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-pgutil.core">
+<span id="pgutil-core-module"></span><h2>pgutil.core module<a class="headerlink" href="#module-pgutil.core" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pgutil.core.__PgBase">
+<em class="property">class </em><code class="descclassname">pgutil.core.</code><code class="descname">__PgBase</code><span class="sig-paren">(</span><em>w_=500</em>, <em>h_=500</em>, <em>name='PgBase'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#__PgBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.__PgBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>PlaygroundとGLgroundのベースとなるクラス.</p>
+<p>このクラスのメンバ関数はPlaygroundとGLgroundの両方から呼び出すことができます.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>w</strong> (<em>int</em><em>, </em><em>optional</em>) -- ウィンドウの幅,
+デフォルト値は500.</li>
+<li><strong>h</strong> (<em>int</em><em>, </em><em>optional</em>) -- ウィンドウの高さ,
+デフォルト値は500.</li>
+<li><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) -- ウィンドウのタイトル,
+デフォルト値は&quot;PgBase&quot;.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pgutil.core.__PgBase.size">
+<code class="descname">size</code><a class="headerlink" href="#pgutil.core.__PgBase.size" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>tuple of int</em> -- 現在のウィンドウのサイズ.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.__PgBase.col">
+<code class="descname">col</code><a class="headerlink" href="#pgutil.core.__PgBase.col" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>tuple of int</em> -- いくつかの描画関数で使用されるデフォルトの色.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.__PgBase.back_col">
+<code class="descname">back_col</code><a class="headerlink" href="#pgutil.core.__PgBase.back_col" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>tuple of int</em> -- 現在の背景色, PlaygroundとGLgroundの両方で有効.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.__PgBase.screen">
+<code class="descname">screen</code><a class="headerlink" href="#pgutil.core.__PgBase.screen" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pygame.Surface</em> -- ウィンドウのpygame.Surfaceオブジェクト. pygameの機能を直接呼び出すときに使用する.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.__PgBase.ticking">
+<code class="descname">ticking</code><a class="headerlink" href="#pgutil.core.__PgBase.ticking" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em> -- spaceキーでTrue/Falseが切替可能なフラグ.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.__PgBase.totaltick">
+<code class="descname">totaltick</code><a class="headerlink" href="#pgutil.core.__PgBase.totaltick" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> -- ウィンドウ生成時からのフレーム数. tickingがFalseのときはカウントが増加しない.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.__PgBase.debug_flag">
+<code class="descname">debug_flag</code><a class="headerlink" href="#pgutil.core.__PgBase.debug_flag" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em> -- F3キーでTrue/Falseが切替可能なフラグ. Trueの間タイトルバーにfpsが表示される.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.__PgBase.mouse">
+<code class="descname">mouse</code><a class="headerlink" href="#pgutil.core.__PgBase.mouse" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>tuple of int</em> -- 現在のマウスの位置を表すタプル.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.__PgBase.get_fps">
+<code class="descname">get_fps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#__PgBase.get_fps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.__PgBase.get_fps" title="Permalink to this definition">¶</a></dt>
+<dd><p>現在のfps(frames per second)を返します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>fps</strong> -- 現在のfps.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.__PgBase.keyfunc">
+<code class="descname">keyfunc</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#__PgBase.keyfunc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.__PgBase.keyfunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>特定のキーが押されたときに呼び出される関数を設定するデコレータです.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>button</strong> (<em>int</em><em> or </em><em>str</em>) -- キー番号もしくはキーの名前. キー番号はpgutil.K_F1などのようにして取得可能. キーの名前は&quot;F1&quot;などとして設定可能。</li>
+<li><strong>func</strong> (<em>function</em>) -- キーが押されたときに呼び出される関数.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.__PgBase.mousedownfunc">
+<code class="descname">mousedownfunc</code><span class="sig-paren">(</span><em>button</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#__PgBase.mousedownfunc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.__PgBase.mousedownfunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>マウスのボタンが押されたときに呼び出される関数を設定するデコレータです.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>button</strong> (<em>int</em>) -- マウスのボタン番号
+左クリックが1, 右クリックが3. 他のボタンも使用可能.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.__PgBase.mouseupfunc">
+<code class="descname">mouseupfunc</code><span class="sig-paren">(</span><em>button</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#__PgBase.mouseupfunc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.__PgBase.mouseupfunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>マウスのボタンが離されたときに呼び出される関数を設定するデコレータです.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>button</strong> (<em>int</em>) -- マウスのボタン番号
+左クリックが1, 右クリックが3. 他のボタンも使用可能.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.__PgBase.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#__PgBase.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.__PgBase.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>画面の更新とpygameのイベントの処理を行います.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>flag</strong> -- ウィンドウが閉じられていない場合, Trueを返す.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.__PgBase.screenmodefunc">
+<code class="descname">screenmodefunc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#__PgBase.screenmodefunc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.__PgBase.screenmodefunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>スクリーンモードが変更されたときに呼び出される関数を設定するデコレータです.</p>
+<p>通常、スクリーンモードが切り替わるのはF11キーが押されて全画面モードと通常モードが切り替わったときです.
+対象の関数はこの関数で設定されたタイミングにも一度呼び出されます.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> (<em>function</em>) -- スクリーンモードが変更されたときに呼び出される関数</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.__PgBase.set_key_func">
+<code class="descname">set_key_func</code><span class="sig-paren">(</span><em>key</em>, <em>func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#__PgBase.set_key_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.__PgBase.set_key_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>特定のキーが押されたときに呼び出される関数を設定します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>button</strong> (<em>int</em><em> or </em><em>str</em>) -- キー番号もしくはキーの名前. キー番号はpgutil.K_F1などのようにして取得可能. キーの名前は&quot;F1&quot;などとして設定可能。</li>
+<li><strong>func</strong> (<em>function</em>) -- キーが押されたときに呼び出される関数.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.__PgBase.set_mouse_down_func">
+<code class="descname">set_mouse_down_func</code><span class="sig-paren">(</span><em>button</em>, <em>func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#__PgBase.set_mouse_down_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.__PgBase.set_mouse_down_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>マウスのボタンが押されたときに呼び出される関数を設定します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>button</strong> (<em>int</em>) -- マウスのボタン番号
+左クリックが1, 右クリックが3. 他のボタンも使用可能.</li>
+<li><strong>func</strong> (<em>function</em>) -- マウスのボタンが押されたときに呼び出される関数.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.__PgBase.set_mouse_up_func">
+<code class="descname">set_mouse_up_func</code><span class="sig-paren">(</span><em>button</em>, <em>func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#__PgBase.set_mouse_up_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.__PgBase.set_mouse_up_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>マウスのボタンが離されたときに呼び出される関数を設定します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>button</strong> (<em>int</em>) -- マウスのボタン番号.
+左クリックが1, 右クリックが3. 他のボタンも使用可能.</li>
+<li><strong>func</strong> (<em>function</em>) -- マウスのボタンが離されたときに呼び出される関数.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.__PgBase.set_screen_mode_func">
+<code class="descname">set_screen_mode_func</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#__PgBase.set_screen_mode_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.__PgBase.set_screen_mode_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>スクリーンモードが変更されたときに呼び出される関数を設定します.</p>
+<p>通常、スクリーンモードが切り替わるのはF11キーが押されて全画面モードと通常モードが切り替わったときです.
+対象の関数はこの関数で設定されたタイミングにも一度呼び出されます.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> (<em>function</em>) -- スクリーンモードが変更されたときに呼び出される関数</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.__PgBase.take_screenshot">
+<code class="descname">take_screenshot</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#__PgBase.take_screenshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.__PgBase.take_screenshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>PNG形式でスクリーンショットを撮影します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) -- 保存するファイルの名前.
+指定しない場合は現在の日付と時刻が使用される.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pgutil.core.Playground">
+<em class="property">class </em><code class="descclassname">pgutil.core.</code><code class="descname">Playground</code><span class="sig-paren">(</span><em>w_=500</em>, <em>h_=500</em>, <em>name='Playground'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#Playground"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.Playground" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pgutil.core.__PgBase" title="pgutil.core.__PgBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">pgutil.core.__PgBase</span></code></a></p>
+<p>2次元データの可視化用のクラス.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>w</strong> (<em>int</em><em>, </em><em>optional</em>) -- ウィンドウの幅,
+デフォルト値は500.</li>
+<li><strong>h</strong> (<em>int</em><em>, </em><em>optional</em>) -- ウィンドウの高さ,
+デフォルト値は500.</li>
+<li><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) -- ウィンドウのタイトル,
+デフォルト値は&quot;Playground&quot;.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pgutil.core.Playground.fill">
+<code class="descname">fill</code><a class="headerlink" href="#pgutil.core.Playground.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em> -- ウィンドウを毎フレーム塗りつぶすかどうか. 塗りつぶす場合はback_colに指定された色で塗りつぶされる.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.Playground.blit_to_screen">
+<code class="descname">blit_to_screen</code><span class="sig-paren">(</span><em>array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#Playground.blit_to_screen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.Playground.blit_to_screen" title="Permalink to this definition">¶</a></dt>
+<dd><p>2次元配列を使用してウィンドウのピクセルデータを操作する.</p>
+<p>[0-255]の値を持つ整数配列を使用してウィンドウのピクセルデータを直接設定する.
+入力された配列はウィンドウのピクセルのRGBすべてに代入され、モノクロ画像として描画される.
+配列は自動的に伸縮されないため, 配列サイズとウィンドウサイズは一致している必要がある.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>array</strong> (<em>array_like</em>) -- ウィンドウサイズ(Playground.size)と形状の等しい配列.
+2次元配列で, すべての値は0から255の範囲に入っている必要がある.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.Playground.blit_to_screen_3d">
+<code class="descname">blit_to_screen_3d</code><span class="sig-paren">(</span><em>array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#Playground.blit_to_screen_3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.Playground.blit_to_screen_3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>3次元配列を使用してウィンドウのピクセルデータを操作する.</p>
+<p>[0-255]の値を持つ整数配列を使用してウィンドウのピクセルデータを直接設定する.
+入力された配列はウィンドウのピクセルのRGBそれぞれに代入され、カラー画像として描画される.
+配列は自動的に伸縮されないため, 配列サイズとウィンドウサイズは一致している必要がある.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>array</strong> (<em>array_like</em>) -- ウィンドウサイズ(Playground.size)と1, 2次元目の要素数が等しい配列.
+3次元配列で, すべての値は0から255の範囲に入っている必要がある.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.Playground.transform_blit">
+<code class="descname">transform_blit</code><span class="sig-paren">(</span><em>array</em>, <em>minin=None</em>, <em>maxin=None</em>, <em>smallsurf=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#Playground.transform_blit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.Playground.transform_blit" title="Permalink to this definition">¶</a></dt>
+<dd><p>2次元配列を画像として表示する.</p>
+<p>値の小さい部分は暗く, 値の大きい部分は明るく表示される. 表示にはPlayground.colに保存された色が使用される.
+入力された配列は自動的に伸縮され, ウィンドウサイズに一致するようにして描画される.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>array</strong> (<em>array_like</em>) -- 表示する配列.
+2次元配列のみ表示が可能.</li>
+<li><strong>minin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最小として表示される値.
+これより小さい値は黒として表示される.
+指定がない場合は入力された配列の最小値が使用される.</li>
+<li><strong>maxin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最大として表示される値.
+これより大きい値はPlayground.colと同じ色で表示される.
+指定がない場合は入力された配列の最大値が使用される.</li>
+<li><strong>smallsurf</strong> (<em>pygame.Surface</em><em>, </em><em>optional</em>) -- 自動伸縮を行う際に内部的に使用されるpygame.Surfaceオブジェクト.
+指定がない場合は自動的に生成され, 2回目以降の描画のためにキャッシュされる.
+殆どの場合, 変更の必要はありません.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.Playground.transform_blit_3d">
+<code class="descname">transform_blit_3d</code><span class="sig-paren">(</span><em>array</em>, <em>smallsurf=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#Playground.transform_blit_3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.Playground.transform_blit_3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>3次元配列を画像として表示する.</p>
+<p>3次元配列をRGBのピクセルデータとして解釈して表示する.
+入力された配列は自動的に伸縮され, ウィンドウサイズに一致するようにして描画される.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>array</strong> (<em>array_like</em>) -- 表示する配列.
+3次元配列のみ表示が可能.
+3次元目の要素数は3で, すべての値は0から255の範囲に入っている必要がある.</li>
+<li><strong>smallsurf</strong> (<em>pygame.Surface</em><em>, </em><em>optional</em>) -- 自動伸縮を行う際に内部的に使用されるpygame.Surfaceオブジェクト.
+指定がない場合は自動的に生成され, 2回目以降の描画のためにキャッシュされる.
+殆どの場合, 変更の必要はありません.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.Playground.transform_blit_cmap">
+<code class="descname">transform_blit_cmap</code><span class="sig-paren">(</span><em>array</em>, <em>minin=None</em>, <em>maxin=None</em>, <em>cmap=None</em>, <em>smallsurf=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#Playground.transform_blit_cmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.Playground.transform_blit_cmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>2次元配列をカラー画像として表示する.</p>
+<p>2次元配列をカラーマップに従って描画し、画像として表示する.
+入力された配列は自動的に伸縮され, ウィンドウサイズに一致するようにして描画される.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>array</strong> (<em>array_like</em>) -- 表示する配列.
+2次元配列のみ表示が可能.</li>
+<li><strong>minin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最小として表示される値.
+これより小さい値は黒として表示される.
+指定がない場合は入力された配列の最小値が使用される.</li>
+<li><strong>maxin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最大として表示される値.
+これより大きい値はPlayground.colと同じ色で表示される.
+指定がない場合は入力された配列の最大値が使用される.</li>
+<li><strong>cmap</strong> (<em>str</em><em>, </em><em>optional</em>) -- 描画に使用されるカラーマップ.
+matplotlibで使用可能なカラーマップ全てと&quot;AVS&quot;, &quot;AVS_r&quot;が使用可能.
+指定がない場合は&quot;vivid&quot;が選択される.</li>
+<li><strong>smallsurf</strong> (<em>pygame.Surface</em><em>, </em><em>optional</em>) -- 自動伸縮を行う際に内部的に使用されるpygame.Surfaceオブジェクト.
+指定がない場合は自動的に生成され, 2回目以降の描画のためにキャッシュされる.
+殆どの場合, 変更の必要はありません.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.Playground.transform_blit_smooth">
+<code class="descname">transform_blit_smooth</code><span class="sig-paren">(</span><em>array</em>, <em>minin=None</em>, <em>maxin=None</em>, <em>smallsurf=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#Playground.transform_blit_smooth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.Playground.transform_blit_smooth" title="Permalink to this definition">¶</a></dt>
+<dd><p>2次元配列を画像として表示する.</p>
+<p>値の小さい部分は暗く, 値の大きい部分は明るく表示される. 表示にはPlayground.colに保存された色が使用される.
+入力された配列は自動的に伸縮され, ウィンドウサイズに一致するようにして描画される.
+伸縮の際には見た目がなめらかになるよう自動的に補完処理がなされる.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>array</strong> (<em>array_like</em>) -- 表示する配列.
+2次元配列のみ表示が可能.</li>
+<li><strong>minin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最小として表示される値.
+これより小さい値は黒として表示される.
+指定がない場合は入力された配列の最小値が使用される.</li>
+<li><strong>maxin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最大として表示される値.
+これより大きい値はPlayground.colと同じ色で表示される.
+指定がない場合は入力された配列の最大値が使用される.</li>
+<li><strong>smallsurf</strong> (<em>pygame.Surface</em><em>, </em><em>optional</em>) -- 自動伸縮を行う際に内部的に使用されるpygame.Surfaceオブジェクト.
+指定がない場合は自動的に生成され, 2回目以降の描画のためにキャッシュされる.
+殆どの場合, 変更の必要はありません.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pgutil.core.GLground">
+<em class="property">class </em><code class="descclassname">pgutil.core.</code><code class="descname">GLground</code><span class="sig-paren">(</span><em>w_=500</em>, <em>h_=500</em>, <em>name='GLground'</em>, <em>antialiasing=False</em>, <em>ortho=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pgutil.core.__PgBase" title="pgutil.core.__PgBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">pgutil.core.__PgBase</span></code></a></p>
+<p>3次元データの可視化用のクラス.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>w</strong> (<em>int</em><em>, </em><em>optional</em>) -- ウィンドウの幅,
+デフォルト値は500.</li>
+<li><strong>h</strong> (<em>int</em><em>, </em><em>optional</em>) -- ウィンドウの高さ,
+デフォルト値は500.</li>
+<li><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) -- ウィンドウのタイトル,
+デフォルト値は&quot;GLground&quot;.</li>
+<li><strong>antialiasing</strong> (<em>bool</em><em>, </em><em>optional</em>) -- アンチエイリアス処理を行うかどうか.
+デフォルト値はFalse.</li>
+<li><strong>ortho</strong> (<em>bool</em><em>, </em><em>optional</em>) -- 正射影による描画を行うかどうか.
+デフォルト値はFalseで視点投影により描画される.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pgutil.core.GLground.ax">
+<code class="descname">ax</code><a class="headerlink" href="#pgutil.core.GLground.ax" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> -- x軸を軸としたカメラの回転角. 矢印キーで操作可能なほか直接代入することも可能.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.GLground.ay">
+<code class="descname">ay</code><a class="headerlink" href="#pgutil.core.GLground.ay" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> -- y軸を軸としたカメラの回転角. 矢印キーで操作可能なほか直接代入することも可能.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.GLground.az">
+<code class="descname">az</code><a class="headerlink" href="#pgutil.core.GLground.az" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> -- z軸を軸としたカメラの回転角.　矢印キーで操作可能なほか直接代入することも可能.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.GLground.lx">
+<code class="descname">lx</code><a class="headerlink" href="#pgutil.core.GLground.lx" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> -- カメラのx座標. shuft+矢印キーで操作可能なほか直接代入することも可能.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.GLground.ly">
+<code class="descname">ly</code><a class="headerlink" href="#pgutil.core.GLground.ly" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> -- カメラのy座標. shuft+矢印キーで操作可能なほか直接代入することも可能.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.GLground.lz">
+<code class="descname">lz</code><a class="headerlink" href="#pgutil.core.GLground.lz" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> -- カメラのz座標.　shuft+矢印キーで操作可能なほか直接代入することも可能.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.GLground.cube_flag">
+<code class="descname">cube_flag</code><a class="headerlink" href="#pgutil.core.GLground.cube_flag" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em> -- 各軸の頂点の座標が+-1の立方体を描画するかどうか. デフォルトはTrue.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.GLground.rotating">
+<code class="descname">rotating</code><a class="headerlink" href="#pgutil.core.GLground.rotating" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em> -- 描画範囲を自動回転させるかどうか. デフォルトはFalse.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pgutil.core.GLground.rot_vel">
+<code class="descname">rot_vel</code><a class="headerlink" href="#pgutil.core.GLground.rot_vel" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> -- 描画範囲の自動回転の速度.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.bind_tex_cube">
+<code class="descname">bind_tex_cube</code><span class="sig-paren">(</span><em>array</em>, <em>minin=None</em>, <em>maxin=None</em>, <em>cmap=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.bind_tex_cube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.bind_tex_cube" title="Permalink to this definition">¶</a></dt>
+<dd><p>3Dテクスチャを用いて3次元配列を模様付きの立方体として描画するためのテクスチャをバインドする.</p>
+<p>この関数を1度呼び出してからGLground.draw_tex_cubeをarrayの引数を指定無しで呼び出すことで内容の変化しない3次元配列を光速に描画可能.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>array</strong> (<em>array_like</em>) -- 描画するデータを格納した3次元配列もしくは4次元配列.
+3次元配列の場合任意の値を持った配列で, 値に応じた色がカラーマップから選ばれて描画される.
+4次元配列の場合は4次元目がRGBの順番で色の情報を格納した配列であるとみなす. この場合, 配列の値は[0-1]の範囲に入っている必要がある.</li>
+<li><strong>minin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最小として表示される値.
+これより小さい値は黒として表示される.
+指定がない場合は入力された配列の最小値が使用される.
+arrayに渡された配列の次元数が4の場合は無視される.</li>
+<li><strong>maxin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最大として表示される値.
+これより大きい値はPlayground.colと同じ色で表示される.
+指定がない場合は入力された配列の最大値が使用される.
+arrayに渡された配列の次元数が4の場合は無視される.</li>
+<li><strong>cmap</strong> (<em>str</em><em>, </em><em>optional</em>) -- 描画に使用されるカラーマップ.
+matplotlibで使用可能なカラーマップ全てと&quot;AVS&quot;, &quot;AVS_r&quot;が使用可能.
+指定がない場合は&quot;vivid&quot;が選択される.
+arrayに渡された配列の次元数が4の場合は無視される.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>color</strong> -- 生成された色情報を格納した4次元配列.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">allay_like</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.clear_tex_cache">
+<code class="descname">clear_tex_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.clear_tex_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.clear_tex_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>テクスチャ番号のキャッシュを削除する.</p>
+<p>画面モードが切り替わった際に自動で呼び出される.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><em>points</em>, <em>mode=GL_POINTS</em>, <em>color=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>頂点配列を指定した描画モードで描画する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>points</strong> (<em>allay_like</em>) -- 頂点の座標を保持する2次元配列.
+2次元目の要素数は3である必要がある.</li>
+<li><strong>mode</strong> (<em>OpenGL.constant.IntConstant</em>) -- 描画モードを表す定数.
+pgutil.GL_POINTS, pgutil.GL_LINES, pgutil.GL_LINE_STRIP,
+pgutil.TRIANGLES, pgutil.TRIANGLE_STRIP, pgutil.GL_QUADS
+や他のOpenGLの描画モードが使用可能.
+デフォルト値はpgutil.GL_POINTSで頂点を点として描画する.</li>
+<li><strong>color</strong> (<em>tuple of float</em><em>, </em><em>optional</em>) -- 描画に使用される色.
+[0-1]の値を持つ要素数3または4のタプルが設定可能.
+指定がない場合はPlayground.colに保存された色が使用される.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_axis">
+<code class="descname">draw_axis</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_axis" title="Permalink to this definition">¶</a></dt>
+<dd><p>x, y, z軸に廃校したRGB3色の直線を描画する.</p>
+<p>デバッグ時の座標の確認用.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_cube">
+<code class="descname">draw_cube</code><span class="sig-paren">(</span><em>l</em>, <em>color=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_cube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_cube" title="Permalink to this definition">¶</a></dt>
+<dd><p>それぞれの辺がx, y, z軸に廃校した立方体を描画する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>l</strong> (<em>float</em>) -- 描画する立方体の1辺の長さの1/2.
+最終的に描画される立方体の1辺の長さは2lとなる.</li>
+<li><strong>color</strong> (<em>tuple of float</em><em>, </em><em>optional</em>) -- 描画に使用される色.
+[0-1]の値を持つ要素数3または4のタプルが設定可能.
+指定がない場合はPlayground.colに保存された色が使用される.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_marching_cubes">
+<code class="descname">draw_marching_cubes</code><span class="sig-paren">(</span><em>array</em>, <em>thresh=None</em>, <em>reverse=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_marching_cubes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_marching_cubes" title="Permalink to this definition">¶</a></dt>
+<dd><p>マーチングキューブ法を用いて3次元配列の等値面をを滑らかな立体として描画する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>array</strong> (<em>array_like</em>) -- 立体として描画するデータを格納した3次元配列.</li>
+<li><strong>thresh</strong> (<em>float</em>) -- 描画する曲面での配列中での値.</li>
+<li><strong>reverse</strong> (<em>bool</em><em>, </em><em>optional</em>) -- 不透明であるとして描画する範囲を反転させるかどうか.
+Falseの場合, threshに指定された値より大きい値を持つ場所が不透明であるとして描画される.
+Trueの場合, threshに指定された値より小さい値を持つ場所が不透明であるとして描画される.
+デフォルト値はFalse.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_mesh">
+<code class="descname">draw_mesh</code><span class="sig-paren">(</span><em>array</em>, <em>minin=None</em>, <em>maxin=None</em>, <em>scl=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_mesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>2次元配列をメッシュデータとして描画する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>array</strong> (<em>array_like</em>) -- メッシュとして描画する対象となるデータを格納した2次元配列.
+2次元配列でなおかつ1次元目と2次元目の要素数が一致している必要がある.</li>
+<li><strong>minin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最小として表示される値.
+これより小さい値は黒として表示される.
+指定がない場合は入力された配列の最小値が使用される.</li>
+<li><strong>maxin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最大として表示される値.
+これより大きい値はPlayground.colと同じ色で表示される.
+指定がない場合は入力された配列の最大値が使用される.</li>
+<li><strong>scl</strong> (<em>float</em><em>, </em><em>optional</em>) -- 高さ方向のスケールを決定する定数.
+指定がない場合は1が使用され、最大、最小の高さがそれぞれ1, -1になるよう描画される.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_mesh_colored">
+<code class="descname">draw_mesh_colored</code><span class="sig-paren">(</span><em>array</em>, <em>minin=None</em>, <em>maxin=None</em>, <em>cmap='gist_rainbow_r'</em>, <em>scl=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_mesh_colored"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_mesh_colored" title="Permalink to this definition">¶</a></dt>
+<dd><p>2次元配列を色付きのメッシュデータとして描画する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>array</strong> (<em>array_like</em>) -- メッシュとして描画する対象となるデータを格納した2次元配列.
+2次元配列でなおかつ1次元目と2次元目の要素数が一致している必要がある.</li>
+<li><strong>minin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最小として表示される値.
+これより小さい値は黒として表示される.
+指定がない場合は入力された配列の最小値が使用される.</li>
+<li><strong>maxin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最大として表示される値.
+これより大きい値はPlayground.colと同じ色で表示される.
+指定がない場合は入力された配列の最大値が使用される.</li>
+<li><strong>cmap</strong> (<em>str</em>) -- 描画に使用されるカラーマップ.
+matplotlibで使用可能なカラーマップ全てと&quot;AVS&quot;, &quot;AVS_r&quot;が使用可能.
+指定がない場合は&quot;gist_rainbow_r&quot;が選択される.</li>
+<li><strong>scl</strong> (<em>float</em><em>, </em><em>optional</em>) -- 高さ方向のスケールを決定する定数.
+指定がない場合は1が使用され、最大、最小の高さがそれぞれ1, -1になるよう描画される.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_surface">
+<code class="descname">draw_surface</code><span class="sig-paren">(</span><em>array</em>, <em>minin=None</em>, <em>maxin=None</em>, <em>scl=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>2次元配列を陰影が処理された曲面として描画する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>array</strong> (<em>array_like</em>) -- 曲面として描画する対象となるデータを格納した2次元配列.
+2次元配列でなおかつ1次元目と2次元目の要素数が一致している必要がある.</li>
+<li><strong>minin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最小として表示される値.
+これより小さい値は黒として表示される.
+指定がない場合は入力された配列の最小値が使用される.</li>
+<li><strong>maxin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最大として表示される値.
+これより大きい値はPlayground.colと同じ色で表示される.
+指定がない場合は入力された配列の最大値が使用される.</li>
+<li><strong>scl</strong> (<em>float</em><em>, </em><em>optional</em>) -- 高さ方向のスケールを決定する定数.
+指定がない場合は1が使用され、最大、最小の高さがそれぞれ1, -1になるよう描画される.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_tex_cube">
+<code class="descname">draw_tex_cube</code><span class="sig-paren">(</span><em>array=None</em>, <em>minin=None</em>, <em>maxin=None</em>, <em>cmap=None</em>, <em>mouse=False</em>, <em>box=(-1</em>, <em>1</em>, <em>-1</em>, <em>1</em>, <em>-1</em>, <em>1)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_tex_cube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_tex_cube" title="Permalink to this definition">¶</a></dt>
+<dd><p>3Dテクスチャを用いて3次元配列を模様付きの立方体として描画する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>array</strong> (<em>array_like</em>) -- 描画するデータを格納した3次元配列もしくは4次元配列.
+3次元配列の場合任意の値を持った配列で, 値に応じた色がカラーマップから選ばれて描画される.
+4次元配列の場合は4次元目がRGBの順番で色の情報を格納した配列であるとみなす. この場合, 配列の値は[0-1]の範囲に入っている必要がある.
+Noneの場合, 事前にバインドしたテクスチャがそのまま描画に使用される.</li>
+<li><strong>minin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最小として表示される値.
+これより小さい値は黒として表示される.
+指定がない場合は入力された配列の最小値が使用される.
+arrayに渡された配列の次元数が4の場合は無視される.</li>
+<li><strong>maxin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最大として表示される値.
+これより大きい値はPlayground.colと同じ色で表示される.
+指定がない場合は入力された配列の最大値が使用される.
+arrayに渡された配列の次元数が4の場合は無視される.</li>
+<li><strong>cmap</strong> (<em>str</em><em>, </em><em>optional</em>) -- 描画に使用されるカラーマップ.
+matplotlibで使用可能なカラーマップ全てと&quot;AVS&quot;, &quot;AVS_r&quot;が使用可能.
+指定がない場合は&quot;vivid&quot;が選択される.
+arrayに渡された配列の次元数が4の場合は無視される.</li>
+<li><strong>mouse</strong> (<em>bool</em><em>, </em><em>optional</em>) -- 描画する立方体の断面をマウス操作によって移動できるようにするかどうか.
+デフォルト値はFalse.</li>
+<li><strong>box</strong> (<em>tuple of float</em>) -- 描画する立方体の各軸の最小, 最大の指定.
+mouseがTrueの場合は無視される.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_text">
+<code class="descname">draw_text</code><span class="sig-paren">(</span><em>text</em>, <em>center</em>, <em>scl=0.3</em>, <em>rotated=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>指定の位置にテキストを描画する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>text</strong> (<em>str</em>) -- 描画するテキスト.
+改行も反映される.</li>
+<li><strong>center</strong> (<em>tuple of float</em>) -- テキストを描画する座標.
+要素数3のタプルによって指定する.</li>
+<li><strong>scl</strong> (<em>float</em>) -- 表示の際のスケール.
+大きくするほどテキストが大きく表示される.
+デフォルト値は0.3</li>
+<li><strong>rotated</strong> (<em>bool</em>) -- 90°回転するかどうか.
+デフォルトはFalse.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_voxel">
+<code class="descname">draw_voxel</code><span class="sig-paren">(</span><em>array</em>, <em>colors=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_voxel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_voxel" title="Permalink to this definition">¶</a></dt>
+<dd><p>3次元配列をボクセルデータとして描画する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>array</strong> (<em>allay_like</em>) -- ボクセルデータが格納されたnp.bool型の3次元配列.
+Trueに対応する場所が不透明であるとして描画される.</li>
+<li><strong>colors</strong> (<em>array_like</em>) -- 描画に使用する色の情報を含んだ配列.
+1次元目の要素数は3または6, 2次元目の要素数は3または4である必要がある.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_with_color">
+<code class="descname">draw_with_color</code><span class="sig-paren">(</span><em>points</em>, <em>mode</em>, <em>colors</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_with_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_with_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>頂点配列を指定した描画モードで描画する.</p>
+<p>それぞれの頂点は異なる色で描画される.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>points</strong> (<em>allay_like</em>) -- 頂点の座標を保持する2次元配列.
+2次元目の要素数は3である必要がある.</li>
+<li><strong>mode</strong> (<em>OpenGL.constant.IntConstant</em>) -- 描画モードを表す定数.
+pgutil.GL_POINTS, pgutil.GL_LINES, pgutil.GL_LINE_STRIP,
+pgutil.TRIANGLES, pgutil.TRIANGLE_STRIP, pgutil.GL_QUADS
+や他のOpenGLの描画モードが使用可能.
+デフォルト値はpgutil.GL_POINTSで頂点を点として描画する.</li>
+<li><strong>colors</strong> (<em>allay_like</em>) -- 描画に使用する色の情報を格納した配列.
+1番目の次元の要素数はpointsに渡す配列と同じでなければならない.
+すべての値は[0-1]の範囲に入っている必要があり、2番目の次元の要素数は3または4でなければならない.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_with_norm">
+<code class="descname">draw_with_norm</code><span class="sig-paren">(</span><em>points</em>, <em>mode</em>, <em>norms</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_with_norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_with_norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>頂点配列を指定した描画モードで描画する.</p>
+<p>それぞれの頂点に法線ベクトルを設定することで陰影をつけて描画する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>points</strong> (<em>allay_like</em>) -- 頂点の座標を保持する2次元配列.
+2次元目の要素数は3である必要がある.</li>
+<li><strong>mode</strong> (<em>OpenGL.constant.IntConstant</em>) -- 描画モードを表す定数.
+pgutil.GL_POINTS, pgutil.GL_LINES, pgutil.GL_LINE_STRIP,
+pgutil.TRIANGLES, pgutil.TRIANGLE_STRIP, pgutil.GL_QUADS
+や他のOpenGLの描画モードが使用可能.
+デフォルト値はpgutil.GL_POINTSで頂点を点として描画する.</li>
+<li><strong>norms</strong> (<em>allay_like</em>) -- 描画に使用する法線ベクトルを格納した配列.
+1番目の次元の要素数はpointsに渡す配列と同じで, 2番目の次元の要素数は3でなければならない.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_with_tex">
+<code class="descname">draw_with_tex</code><span class="sig-paren">(</span><em>points</em>, <em>mode</em>, <em>texcords</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_with_tex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_with_tex" title="Permalink to this definition">¶</a></dt>
+<dd><p>頂点配列を指定した描画モードで描画する.</p>
+<p>それぞれの頂点にテクスチャ座標を指定することでポリゴンにテクスチャを貼り付けて描画する.
+テクスチャは事前にバインドしておく必要があり、使用できるテクスチャは2Dテクスチャのみ.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>points</strong> (<em>allay_like</em>) -- 頂点の座標を保持する2次元配列.
+2次元目の要素数は3である必要がある.</li>
+<li><strong>mode</strong> (<em>OpenGL.constant.IntConstant</em>) -- 描画モードを表す定数.
+pgutil.GL_POINTS, pgutil.GL_LINES, pgutil.GL_LINE_STRIP,
+pgutil.TRIANGLES, pgutil.TRIANGLE_STRIP, pgutil.GL_QUADS
+や他のOpenGLの描画モードが使用可能.
+デフォルト値はpgutil.GL_POINTSで頂点を点として描画する.</li>
+<li><strong>texcords</strong> (<em>allay_like</em>) -- 描画に使用するテクスチャ座標を格納した配列.
+すべての値は[0-1]の範囲に入っている必要があり、1番目の次元の要素数はpointsに渡す配列と同じで, 2番目の次元の要素数は2でなければならない.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.draw_with_tex_3d">
+<code class="descname">draw_with_tex_3d</code><span class="sig-paren">(</span><em>points</em>, <em>mode</em>, <em>texcords</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.draw_with_tex_3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.draw_with_tex_3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>頂点配列を指定した描画モードで描画する.</p>
+<p>それぞれの頂点にテクスチャ座標を指定することでポリゴンにテクスチャを貼り付けて描画する.
+テクスチャは事前にバインドしておく必要があり、使用できるテクスチャは3Dテクスチャのみ.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>points</strong> (<em>allay_like</em>) -- 頂点の座標を保持する2次元配列.
+2次元目の要素数は3である必要がある.</li>
+<li><strong>mode</strong> (<em>OpenGL.constant.IntConstant</em>) -- 描画モードを表す定数.
+pgutil.GL_POINTS, pgutil.GL_LINES, pgutil.GL_LINE_STRIP,
+pgutil.TRIANGLES, pgutil.TRIANGLE_STRIP, pgutil.GL_QUADS
+や他のOpenGLの描画モードが使用可能.
+デフォルト値はpgutil.GL_POINTSで頂点を点として描画する.</li>
+<li><strong>texcords</strong> (<em>allay_like</em>) -- 描画に使用するテクスチャ座標を格納した配列.
+すべての値は[0-1]の範囲に入っている必要があり、1番目の次元の要素数はpointsに渡す配列と同じで, 2番目の次元の要素数は3でなければならない.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.gen_marching_data">
+<code class="descname">gen_marching_data</code><span class="sig-paren">(</span><em>array</em>, <em>thresh=None</em>, <em>reverse=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.gen_marching_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.gen_marching_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>マーチングキューブ法を用いて3次元配列の等値面をを滑らかな立体として描画するためのデータを生成する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>array</strong> (<em>array_like</em>) -- 立体として描画するデータを格納した3次元配列.</li>
+<li><strong>thresh</strong> (<em>float</em>) -- 描画する曲面での配列中での値.</li>
+<li><strong>reverse</strong> (<em>bool</em><em>, </em><em>optional</em>) -- 不透明であるとして描画する範囲を反転させるかどうか.
+Falseの場合, threshに指定された値より大きい値を持つ場所が不透明であるとして描画される.
+Trueの場合, threshに指定された値より小さい値を持つ場所が不透明であるとして描画される.
+デフォルト値はFalse.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>surf</strong> (<em>allay_like</em>) -- 生成された曲面の頂点の座標が格納された配列.
+GLground.draw_with_norm(surf, pgutil.GL_TRIANGLE_STRIP, norm)のようにして描画に使用できる.</li>
+<li><strong>norms</strong> (<em>allay_like</em>) -- 生成された曲面の法線ベクトルが格納された配列.
+GLground.draw_with_norm(surf, pgutil.GL_TRIANGLE_STRIP, norm)のようにして描画に使用できる.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.gen_meshdata">
+<code class="descname">gen_meshdata</code><span class="sig-paren">(</span><em>array</em>, <em>minin=None</em>, <em>maxin=None</em>, <em>scl=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.gen_meshdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.gen_meshdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>2次元配列をメッシュデータとして描画するためのデータを生成する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>array</strong> (<em>array_like</em>) -- メッシュとして描画する対象となるデータを格納した2次元配列.
+2次元配列でなおかつ1次元目と2次元目の要素数が一致している必要がある.</li>
+<li><strong>minin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最小として表示される値.
+これより小さい値は黒として表示される.
+指定がない場合は入力された配列の最小値が使用される.</li>
+<li><strong>maxin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最大として表示される値.
+これより大きい値はPlayground.colと同じ色で表示される.
+指定がない場合は入力された配列の最大値が使用される.</li>
+<li><strong>scl</strong> (<em>float</em><em>, </em><em>optional</em>) -- 高さ方向のスケールを決定する定数.
+指定がない場合は1が使用され、最大、最小の高さがそれぞれ1, -1になるよう描画される.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>mesh</strong> -- 生成されたメッシュの頂点の座標が格納された配列.
+GLground.draw(mesh, pgutil.GL_LINE_STRIP)のようにして描画に使用できる.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">allay_like</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.gen_meshdata_colored">
+<code class="descname">gen_meshdata_colored</code><span class="sig-paren">(</span><em>array</em>, <em>minin=None</em>, <em>maxin=None</em>, <em>cmap='gist_rainbow_r'</em>, <em>scl=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.gen_meshdata_colored"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.gen_meshdata_colored" title="Permalink to this definition">¶</a></dt>
+<dd><p>2次元配列を色付きのメッシュデータとして描画するためのデータを生成する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>array</strong> (<em>array_like</em>) -- メッシュとして描画する対象となるデータを格納した2次元配列.
+2次元配列でなおかつ1次元目と2次元目の要素数が一致している必要がある.</li>
+<li><strong>minin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最小として表示される値.
+これより小さい値は黒として表示される.
+指定がない場合は入力された配列の最小値が使用される.</li>
+<li><strong>maxin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最大として表示される値.
+これより大きい値はPlayground.colと同じ色で表示される.
+指定がない場合は入力された配列の最大値が使用される.</li>
+<li><strong>cmap</strong> (<em>str</em>) -- 描画に使用されるカラーマップ.
+matplotlibで使用可能なカラーマップ全てと&quot;AVS&quot;, &quot;AVS_r&quot;が使用可能.
+指定がない場合は&quot;gist_rainbow_r&quot;が選択される.</li>
+<li><strong>scl</strong> (<em>float</em><em>, </em><em>optional</em>) -- 高さ方向のスケールを決定する定数.
+指定がない場合は1が使用され、最大、最小の高さがそれぞれ1, -1になるよう描画される.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>mesh</strong> (<em>allay_like</em>) -- 生成されたメッシュの頂点の座標が格納された配列.
+GLground.draw_with_color(mesh, pgutil.GL_LINE_STRIP, color)のようにして描画に使用できる.</li>
+<li><strong>color</strong> (<em>allay_like</em>) -- 生成されたメッシュの色の情報が格納された配列.
+GLground.draw_with_color(mesh, pgutil.GL_LINE_STRIP, color)のようにして描画に使用できる.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.gen_surfdata">
+<code class="descname">gen_surfdata</code><span class="sig-paren">(</span><em>array</em>, <em>minin=None</em>, <em>maxin=None</em>, <em>scl=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.gen_surfdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.gen_surfdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>2次元配列を陰影が処理された曲面として描画するためのデータを生成する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>array</strong> (<em>array_like</em>) -- 曲面として描画する対象となるデータを格納した2次元配列.
+2次元配列でなおかつ1次元目と2次元目の要素数が一致している必要がある.</li>
+<li><strong>minin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最小として表示される値.
+これより小さい値は黒として表示される.
+指定がない場合は入力された配列の最小値が使用される.</li>
+<li><strong>maxin</strong> (<em>float</em><em>, </em><em>optional</em>) -- 表示の際に最大として表示される値.
+これより大きい値はPlayground.colと同じ色で表示される.
+指定がない場合は入力された配列の最大値が使用される.</li>
+<li><strong>scl</strong> (<em>float</em><em>, </em><em>optional</em>) -- 高さ方向のスケールを決定する定数.
+指定がない場合は1が使用され、最大、最小の高さがそれぞれ1, -1になるよう描画される.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>surf</strong> (<em>allay_like</em>) -- 生成された曲面の頂点の座標が格納された配列.
+GLground.draw_with_norm(surf, pgutil.GL_TRIANGLE_STRIP, norm)のようにして描画に使用できる.</li>
+<li><strong>norms</strong> (<em>allay_like</em>) -- 生成された曲面の法線ベクトルが格納された配列.
+GLground.draw_with_norm(surf, pgutil.GL_TRIANGLE_STRIP, norm)のようにして描画に使用できる.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.gen_voxel_data">
+<code class="descname">gen_voxel_data</code><span class="sig-paren">(</span><em>array</em>, <em>colors=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.gen_voxel_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.gen_voxel_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>3次元配列をボクセルデータとして描画するためのデータを生成する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>array</strong> (<em>allay_like</em>) -- ボクセルデータが格納されたnp.bool型の3次元配列.
+Trueに対応する場所が不透明であるとして描画される.</li>
+<li><strong>colors</strong> (<em>array_like</em>) -- 描画に使用する色の情報を含んだ配列.
+1次元目の要素数は3または6, 2次元目の要素数は3または4である必要がある.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>verts</strong> (<em>allay_like</em>) -- 生成されたボクセルの頂点の座標が格納された配列.
+GLground.draw_with_color(verts, pgutil.GL_QUADS, cols)のようにして描画に使用できる.</li>
+<li><strong>cols</strong> (<em>allay_like</em>) -- 生成されたボクセルの色の情報が格納された配列.
+GLground.draw_with_color(verts, pgutil.GL_QUADS, cols)のようにして描画に使用できる.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.init_lighting">
+<code class="descname">init_lighting</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.init_lighting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.init_lighting" title="Permalink to this definition">¶</a></dt>
+<dd><p>照明システムを初期化する.</p>
+<p>法線ベクトルを使用した描画の前に呼び出される必要があるが, ほとんどの場合は自動で呼び出される.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.set_line_width">
+<code class="descname">set_line_width</code><span class="sig-paren">(</span><em>width</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.set_line_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.set_line_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>描画される直線の太さを設定する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<em>float</em>) -- 描画に使用される直線の太さ.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil.core.GLground.set_point_size">
+<code class="descname">set_point_size</code><span class="sig-paren">(</span><em>size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/core.html#GLground.set_point_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil.core.GLground.set_point_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>描画される点の大きさを設定する.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>size</strong> (<em>float</em>) -- 描画に使用される点の大きさ.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pgutil._drawutil">
+<span id="pgutil-drawutil-module"></span><h2>pgutil._drawutil module<a class="headerlink" href="#module-pgutil._drawutil" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pgutil._drawutil.DrawWrapper">
+<em class="property">class </em><code class="descclassname">pgutil._drawutil.</code><code class="descname">DrawWrapper</code><span class="sig-paren">(</span><em>pg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#DrawWrapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.DrawWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>pygame.drawモジュール内の関数の呼び出し用の薄いラッパークラス.</p>
+<p>このクラスはpygame.drawモジュール以下に含まれる基本図形の描画用の関数の呼び出しの補助するためののクラスです.
+このクラスに含まれる関数は殆どの場合、pygame.drawモジュール内の関数のSurfaceオブジェクトの指定を省略できるようにしたものです.
+このため、それぞれの関数の詳しい説明は <a class="reference external" href="http://westplain.sakuraweb.com/translate/pygame/Draw.cgi">http://westplain.sakuraweb.com/translate/pygame/Draw.cgi</a> を参照してください.
+このクラス内の関数はPlaygroundのインスタンスを生成後、Playground.draw以下の名前空間から参照することができます.</p>
+<dl class="method">
+<dt id="pgutil._drawutil.DrawWrapper.aaline">
+<code class="descname">aaline</code><span class="sig-paren">(</span><em>color</em>, <em>startpos</em>, <em>endpos</em>, <em>blend=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#DrawWrapper.aaline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.DrawWrapper.aaline" title="Permalink to this definition">¶</a></dt>
+<dd><p>アンチエイリアス処理のなされた直線を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+<li><strong>startpos</strong> (<em>tuple of float</em>) -- 描画される直線の始点を指定します.</li>
+<li><strong>endpos</strong> (<em>tuple of float</em>) -- 描画される直線の終点を指定します.</li>
+<li><strong>blend</strong> (<em>int</em><em> or </em><em>bool</em>) -- Trueに設定された場合、描画位置のピクセルに上書きはされず , 半透明の状態で描画されます.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rect</strong> -- 描画によって影響を受けた範囲を示すpygame.Rectオブジェクトを返します.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pygame.Rect</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.DrawWrapper.aalines">
+<code class="descname">aalines</code><span class="sig-paren">(</span><em>color</em>, <em>closed</em>, <em>pointlist</em>, <em>blend=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#DrawWrapper.aalines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.DrawWrapper.aalines" title="Permalink to this definition">¶</a></dt>
+<dd><p>アンチエイリアス処理のなされた複数の連結された直線を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+<li><strong>closed</strong> (<em>bool</em>) -- Trueに設定された場合, 始点と終点を直線でつないで描画します.</li>
+<li><strong>pointlist</strong> (<em>array-like</em>) -- 頂点の座標を格納した2次元配列.
+配列の2次元目の要素数は2で, 少なくとも2点以上の座標を設定する必要があります.</li>
+<li><strong>blend</strong> (<em>int</em><em> or </em><em>bool</em>) -- Trueに設定された場合、描画位置のピクセルに上書きはされず , 半透明の状態で描画されます.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rect</strong> -- 描画によって影響を受けた範囲を示すpygame.Rectオブジェクトを返します.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pygame.Rect</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.DrawWrapper.arc">
+<code class="descname">arc</code><span class="sig-paren">(</span><em>color</em>, <em>Rect</em>, <em>start_angle</em>, <em>stop_angle</em>, <em>width=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#DrawWrapper.arc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.DrawWrapper.arc" title="Permalink to this definition">¶</a></dt>
+<dd><p>楕円の弧を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+<li><strong>Rect</strong> (<em>pygame.Rect</em><em> or </em><em>tuple of float</em>) -- 楕円に外接する長方形を示すpygame.Rectオブジェクトもしくは座標を格納したタプル.
+タプルは(x_min, y_min, width, height)の順番で値を格納する.</li>
+<li><strong>start_angle</strong> (<em>float</em>) -- 弧の始点に対応する角度.
+単位はラジアン.</li>
+<li><strong>stop_angle</strong> (<em>float</em>) -- 弧の終点に対応する角度.
+単位はラジアン.</li>
+<li><strong>width</strong> (<em>float</em>) -- 描画される弧の太さ.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rect</strong> -- 描画によって影響を受けた範囲を示すpygame.Rectオブジェクトを返します.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pygame.Rect</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.DrawWrapper.circle">
+<code class="descname">circle</code><span class="sig-paren">(</span><em>color</em>, <em>pos</em>, <em>radius</em>, <em>width=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#DrawWrapper.circle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.DrawWrapper.circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>円を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+<li><strong>pos</strong> (<em>tuple of float</em>) -- 円の中心の座標を格納したタプル.</li>
+<li><strong>radius</strong> (<em>float</em>) -- 描画される円の半径.</li>
+<li><strong>width</strong> (<em>float</em>) -- 描画される円の太さ.
+0を指定した場合は内側を塗りつぶして描画する.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rect</strong> -- 描画によって影響を受けた範囲を示すpygame.Rectオブジェクトを返します.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pygame.Rect</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.DrawWrapper.ellipse">
+<code class="descname">ellipse</code><span class="sig-paren">(</span><em>color</em>, <em>Rect</em>, <em>width=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#DrawWrapper.ellipse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.DrawWrapper.ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>楕円を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+<li><strong>Rect</strong> (<em>pygame.Rect</em><em> or </em><em>tuple of float</em>) -- 楕円に外接する長方形を示すpygame.Rectオブジェクトもしくは座標を格納したタプル.
+タプルは(x_min, y_min, width, height)の順番で値を格納する.</li>
+<li><strong>width</strong> (<em>float</em>) -- 描画される円の太さ.
+0を指定した場合は内側を塗りつぶして描画する.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rect</strong> -- 描画によって影響を受けた範囲を示すpygame.Rectオブジェクトを返します.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pygame.Rect</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.DrawWrapper.line">
+<code class="descname">line</code><span class="sig-paren">(</span><em>color</em>, <em>start_pos</em>, <em>end_pos</em>, <em>width=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#DrawWrapper.line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.DrawWrapper.line" title="Permalink to this definition">¶</a></dt>
+<dd><p>直線を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+<li><strong>startpos</strong> (<em>tuple of float</em>) -- 描画される直線の始点を指定します.</li>
+<li><strong>endpos</strong> (<em>tuple of float</em>) -- 描画される直線の終点を指定します.</li>
+<li><strong>width</strong> (<em>float</em>) -- 描画される直線の太さ.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rect</strong> -- 描画によって影響を受けた範囲を示すpygame.Rectオブジェクトを返します.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pygame.Rect</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.DrawWrapper.lines">
+<code class="descname">lines</code><span class="sig-paren">(</span><em>color</em>, <em>closed</em>, <em>pointlist</em>, <em>width=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#DrawWrapper.lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.DrawWrapper.lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>複数の連結された直線を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+<li><strong>closed</strong> (<em>bool</em>) -- Trueに設定された場合, 始点と終点を直線でつないで描画します.</li>
+<li><strong>pointlist</strong> (<em>array-like</em>) -- 頂点の座標を格納した2次元配列.
+配列の2次元目の要素数は2で, 少なくとも2点以上の座標を設定する必要があります.</li>
+<li><strong>width</strong> (<em>float</em>) -- 描画される直線の太さ.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rect</strong> -- 描画によって影響を受けた範囲を示すpygame.Rectオブジェクトを返します.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pygame.Rect</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.DrawWrapper.polygon">
+<code class="descname">polygon</code><span class="sig-paren">(</span><em>color</em>, <em>pointlist</em>, <em>width=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#DrawWrapper.polygon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.DrawWrapper.polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>複数の頂点からなる多角形を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+<li><strong>pointlist</strong> (<em>array-like</em>) -- 頂点の座標を格納した2次元配列.
+配列の2次元目の要素数は2で, 少なくとも3点以上の座標を設定する必要があります.</li>
+<li><strong>width</strong> (<em>float</em>) -- 描画される線の太さ.
+0を指定した場合は内側を塗りつぶして描画する.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rect</strong> -- 描画によって影響を受けた範囲を示すpygame.Rectオブジェクトを返します.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pygame.Rect</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.DrawWrapper.rect">
+<code class="descname">rect</code><span class="sig-paren">(</span><em>color</em>, <em>Rect</em>, <em>width=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#DrawWrapper.rect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.DrawWrapper.rect" title="Permalink to this definition">¶</a></dt>
+<dd><p>長方形を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+<li><strong>Rect</strong> (<em>pygame.Rect</em><em> or </em><em>tuple of float</em>) -- 長方形を示すpygame.Rectオブジェクトもしくは座標を格納したタプル.
+タプルは(x_min, y_min, width, height)の順番で値を格納する.</li>
+<li><strong>width</strong> (<em>float</em>) -- 描画される円の太さ.
+0を指定した場合は内側を塗りつぶして描画する.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rect</strong> -- 描画によって影響を受けた範囲を示すpygame.Rectオブジェクトを返します.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pygame.Rect</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pgutil._drawutil.GfxWrapper">
+<em class="property">class </em><code class="descclassname">pgutil._drawutil.</code><code class="descname">GfxWrapper</code><span class="sig-paren">(</span><em>pg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>pygame.gfxdrawモジュール内の関数の呼び出し用の薄いラッパークラス.</p>
+<p>このクラスはpygame.gfxdrawモジュール以下に含まれる基本図形の描画用の関数の呼び出しの補助するためののクラスです.
+このクラスに含まれる関数は殆どの場合、pygame.gfxdrawモジュール内の関数のSurfaceオブジェクトの指定を省略できるようにしたものです.
+このため、それぞれの関数の詳しい説明は <a class="reference external" href="http://westplain.sakuraweb.com/translate/pygame/Gfxdraw.cgi">http://westplain.sakuraweb.com/translate/pygame/Gfxdraw.cgi</a> を参照してください.
+このクラス内の関数はPlaygroundのインスタンスを生成後、Playground.gfxdraw以下の名前空間から参照することができます.</p>
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.aacircle">
+<code class="descname">aacircle</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>r</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.aacircle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.aacircle" title="Permalink to this definition">¶</a></dt>
+<dd><p>アンチエイリアス処理のなされた円を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>int</em>) -- 円の中心のx座標.</li>
+<li><strong>y</strong> (<em>int</em>) -- 円の中心のy座標.</li>
+<li><strong>r</strong> (<em>int</em>) -- 描画される円の半径.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.aaellipse">
+<code class="descname">aaellipse</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>rx</em>, <em>ry</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.aaellipse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.aaellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>アンチエイリアス処理のなされた楕円を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>int</em>) -- 楕円の左上のx座標.</li>
+<li><strong>y</strong> (<em>int</em>) -- 楕円の左上のy座標.</li>
+<li><strong>rx</strong> (<em>int</em>) -- 描画される楕円の幅</li>
+<li><strong>ry</strong> (<em>int</em>) -- 描画される楕円の高さ</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.aapolygon">
+<code class="descname">aapolygon</code><span class="sig-paren">(</span><em>points</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.aapolygon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.aapolygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>複数の頂点からなるアンチエイリアス処理のなされた多角形を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>points</strong> (<em>array-like</em>) -- 頂点の座標を格納した2次元配列.
+配列の2次元目の要素数は2で, 少なくとも3点以上の座標を設定する必要があります.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.aatrigon">
+<code class="descname">aatrigon</code><span class="sig-paren">(</span><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em>, <em>x3</em>, <em>y3</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.aatrigon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.aatrigon" title="Permalink to this definition">¶</a></dt>
+<dd><p>アンチエイリアス処理のなされた三角形を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x1</strong> (<em>int</em>) -- 三角形の1つめの頂点のx座標.</li>
+<li><strong>y1</strong> (<em>int</em>) -- 三角形の1つめの頂点のy座標.</li>
+<li><strong>x2</strong> (<em>int</em>) -- 三角形の2つめの頂点のx座標.</li>
+<li><strong>y2</strong> (<em>int</em>) -- 三角形の2つめの頂点のy座標.</li>
+<li><strong>x3</strong> (<em>int</em>) -- 三角形の3つめの頂点のx座標.</li>
+<li><strong>y3</strong> (<em>int</em>) -- 三角形の3つめの頂点のy座標.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.arc">
+<code class="descname">arc</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>r</em>, <em>start</em>, <em>end</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.arc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.arc" title="Permalink to this definition">¶</a></dt>
+<dd><p>円の弧を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>int</em>) -- 円の中心のx座標.</li>
+<li><strong>y</strong> (<em>int</em>) -- 円の中心のy座標.</li>
+<li><strong>r</strong> (<em>int</em>) -- 円の半径.</li>
+<li><strong>start</strong> (<em>float</em>) -- 弧の始点に対応する角度.
+単位はラジアン.</li>
+<li><strong>end</strong> (<em>float</em>) -- 弧の終点に対応する角度.
+単位はラジアン.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.bezier">
+<code class="descname">bezier</code><span class="sig-paren">(</span><em>points</em>, <em>steps</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.bezier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.bezier" title="Permalink to this definition">¶</a></dt>
+<dd><p>ベジェ曲線を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pointlist</strong> (<em>array-like</em>) -- ベジェ曲線の制御点の座標を格納した2次元配列.
+配列の2次元目の要素数は2で, 少なくとも2点以上の座標を設定する必要があります.</li>
+<li><strong>steps</strong> (<em>tuple of int</em>) -- ベジェ曲線の次数を指定します.</li>
+<li><strong>closed</strong> (<em>bool</em>) -- Trueに設定された場合, 始点と終点を直線でつないで描画します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.box">
+<code class="descname">box</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.box" title="Permalink to this definition">¶</a></dt>
+<dd><p>長方形を描画します.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.circle">
+<code class="descname">circle</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>r</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.circle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>円を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>int</em>) -- 円の中心のx座標.</li>
+<li><strong>y</strong> (<em>int</em>) -- 円の中心のy座標.</li>
+<li><strong>r</strong> (<em>int</em>) -- 描画される円の半径.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.ellipse">
+<code class="descname">ellipse</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>rx</em>, <em>ry</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.ellipse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>楕円を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>int</em>) -- 楕円の左上のx座標.</li>
+<li><strong>y</strong> (<em>int</em>) -- 楕円の左上のy座標.</li>
+<li><strong>rx</strong> (<em>int</em>) -- 描画される楕円の幅</li>
+<li><strong>ry</strong> (<em>int</em>) -- 描画される楕円の高さ</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.filled_circle">
+<code class="descname">filled_circle</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>r</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.filled_circle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.filled_circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>内部が塗りつぶされた円を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>int</em>) -- 円の中心のx座標.</li>
+<li><strong>y</strong> (<em>int</em>) -- 円の中心のy座標.</li>
+<li><strong>r</strong> (<em>int</em>) -- 描画される円の半径.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.filled_ellipse">
+<code class="descname">filled_ellipse</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>rx</em>, <em>ry</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.filled_ellipse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.filled_ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>内部が塗りつぶされた楕円を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>int</em>) -- 楕円の左上のx座標.</li>
+<li><strong>y</strong> (<em>int</em>) -- 楕円の左上のy座標.</li>
+<li><strong>rx</strong> (<em>int</em>) -- 描画される楕円の幅</li>
+<li><strong>ry</strong> (<em>int</em>) -- 描画される楕円の高さ</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.filled_polygon">
+<code class="descname">filled_polygon</code><span class="sig-paren">(</span><em>points</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.filled_polygon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.filled_polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>複数の頂点からなる内部が塗りつぶされた多角形を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>points</strong> (<em>array-like</em>) -- 頂点の座標を格納した2次元配列.
+配列の2次元目の要素数は2で, 少なくとも3点以上の座標を設定する必要があります.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.filled_trigon">
+<code class="descname">filled_trigon</code><span class="sig-paren">(</span><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em>, <em>x3</em>, <em>y3</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.filled_trigon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.filled_trigon" title="Permalink to this definition">¶</a></dt>
+<dd><p>内部が塗りつぶされた三角形を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x1</strong> (<em>int</em>) -- 三角形の1つめの頂点のx座標.</li>
+<li><strong>y1</strong> (<em>int</em>) -- 三角形の1つめの頂点のy座標.</li>
+<li><strong>x2</strong> (<em>int</em>) -- 三角形の2つめの頂点のx座標.</li>
+<li><strong>y2</strong> (<em>int</em>) -- 三角形の2つめの頂点のy座標.</li>
+<li><strong>x3</strong> (<em>int</em>) -- 三角形の3つめの頂点のx座標.</li>
+<li><strong>y3</strong> (<em>int</em>) -- 三角形の3つめの頂点のy座標.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.hline">
+<code class="descname">hline</code><span class="sig-paren">(</span><em>x1</em>, <em>x2</em>, <em>y</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.hline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.hline" title="Permalink to this definition">¶</a></dt>
+<dd><p>x軸に平行な直線を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x1</strong> (<em>int</em>) -- 直線の始点のx座標.</li>
+<li><strong>x2</strong> (<em>int</em>) -- 直線の終点のx座標.</li>
+<li><strong>y</strong> (<em>int</em>) -- 直線のy座標.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.line">
+<code class="descname">line</code><span class="sig-paren">(</span><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.line" title="Permalink to this definition">¶</a></dt>
+<dd><p>直線を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x1</strong> (<em>int</em>) -- 直線の始点のx座標.</li>
+<li><strong>y1</strong> (<em>int</em>) -- 直線の始点のy座標.</li>
+<li><strong>x2</strong> (<em>int</em>) -- 直線の終点のx座標.</li>
+<li><strong>y2</strong> (<em>int</em>) -- 直線の終点のy座標.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.pie">
+<code class="descname">pie</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>r</em>, <em>start</em>, <em>end</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.pie"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.pie" title="Permalink to this definition">¶</a></dt>
+<dd><p>内部の塗りつぶされた円弧を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>int</em>) -- 円の中心のx座標.</li>
+<li><strong>y</strong> (<em>int</em>) -- 円の中心のy座標.</li>
+<li><strong>r</strong> (<em>int</em>) -- 円の半径.</li>
+<li><strong>start</strong> (<em>float</em>) -- 弧の始点に対応する角度.
+単位はラジアン.</li>
+<li><strong>end</strong> (<em>float</em>) -- 弧の終点に対応する角度.
+単位はラジアン.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.pixel">
+<code class="descname">pixel</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.pixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.pixel" title="Permalink to this definition">¶</a></dt>
+<dd><p>1ピクセルの点を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>int</em>) -- 描画されるピクセルのx座標.</li>
+<li><strong>y</strong> (<em>int</em>) -- 描画されるピクセルのy座標.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.polygon">
+<code class="descname">polygon</code><span class="sig-paren">(</span><em>points</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.polygon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>複数の頂点からなる多角形を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>points</strong> (<em>array-like</em>) -- 頂点の座標を格納した2次元配列.
+配列の2次元目の要素数は2で, 少なくとも3点以上の座標を設定する必要があります.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.rectangle">
+<code class="descname">rectangle</code><span class="sig-paren">(</span><em>rect</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.rectangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.rectangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>長方形を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>rect</strong> (<em>pygame.Rect</em><em> or </em><em>tuple of float</em>) -- 長方形を示すpygame.Rectオブジェクトもしくは座標を格納したタプル.
+タプルは(x_min, y_min, width, height)の順番で値を格納する.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.textured_polygon">
+<code class="descname">textured_polygon</code><span class="sig-paren">(</span><em>points</em>, <em>texture</em>, <em>tx</em>, <em>ty</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.textured_polygon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.textured_polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>テクスチャ処理のなされた複数の頂点からなる多角形を描画します.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.trigon">
+<code class="descname">trigon</code><span class="sig-paren">(</span><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em>, <em>x3</em>, <em>y3</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.trigon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.trigon" title="Permalink to this definition">¶</a></dt>
+<dd><p>三角形を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x1</strong> (<em>int</em>) -- 三角形の1つめの頂点のx座標.</li>
+<li><strong>y1</strong> (<em>int</em>) -- 三角形の1つめの頂点のy座標.</li>
+<li><strong>x2</strong> (<em>int</em>) -- 三角形の2つめの頂点のx座標.</li>
+<li><strong>y2</strong> (<em>int</em>) -- 三角形の2つめの頂点のy座標.</li>
+<li><strong>x3</strong> (<em>int</em>) -- 三角形の3つめの頂点のx座標.</li>
+<li><strong>y3</strong> (<em>int</em>) -- 三角形の3つめの頂点のy座標.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pgutil._drawutil.GfxWrapper.vline">
+<code class="descname">vline</code><span class="sig-paren">(</span><em>x</em>, <em>y1</em>, <em>y2</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pgutil/_drawutil.html#GfxWrapper.vline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pgutil._drawutil.GfxWrapper.vline" title="Permalink to this definition">¶</a></dt>
+<dd><p>y軸に平行な直線を描画します.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>int</em>) -- 直線のx座標.</li>
+<li><strong>y1</strong> (<em>int</em>) -- 直線の始点のy座標.</li>
+<li><strong>y2</strong> (<em>int</em>) -- 直線の終点のy座標.</li>
+<li><strong>color</strong> (<em>tuple of int</em>) -- 描画に使用される色を指定します.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to pgutil's documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorials/tutorial0.html"
+                        title="next chapter">0. はじめに</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorials/tutorial0.html" title="0. はじめに"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to pgutil&#39;s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, M.Yusuke.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

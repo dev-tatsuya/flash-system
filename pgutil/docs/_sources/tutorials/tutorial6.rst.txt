@@ -1,0 +1,44 @@
+.. _header-n0:
+
+6. GLground - 頂点の描画
+========================
+
+GLgroundはオープンソース3次元描画ライブラリOpenGLをベースにした描画用のクラスで,
+Playgroundとは異なり3次元の描画に特化したクラスになっています.
+
+.. code:: python
+
+   import pgutil
+   import numpy as np
+
+   pg = pgutil.GLground()
+
+   # 描画される点のサイズを大きくする
+   pg.set_point_size(3)
+
+   # -1から1のランダムな数で頂点の座標を表す配列を作成
+   verts = np.random.rand(128, 3) * 2 - 1
+
+   while pg.run():
+       # 頂点の座標に点を描画
+       pg.draw(verts)
+       # 頂点同士を線で接続
+       pg.draw(verts, pgutil.GL_LINE_STRIP, (1., 0., 0.,))
+
+上に示した例は乱数で頂点の座標を生成し、頂点の座標の位置に点を描画したあとに頂点同士を線でつないで描画するサンプルプログラムです.
+
+GLgroundの頂点描画系の関数は基本的に1つめの引数として頂点の座標を保持する配列を取り、2つめの引数にはOpenGLの描画モードを指定する定数を,
+3つめ以降の引数にそれぞれの関数に固有な引数を取ります.
+
+上に示した例では点を描画する際には配列のみを引数として渡すことで,
+描画モードをデフォルトの\ ``pgutil.GL_POINTS``\ に,
+描画色に\ ``GLground.col``\ を使用して描画を行います.
+一方、線の描画の際には頂点の配列に加えて描画モードに頂点同士を点でつなぐ\ ``pgutil.GL_LINE_STRIP``\ を,
+描画色に\ ``(1.,0.,0.)``\ で示される赤色を用いて描画を行います.
+
+同様の関数に頂点ごとに異なる色での描画が可能な\ ``Glground.draw_with_color``,
+頂点ごとに法線ベクトルを設定して陰影処理を行った上で描画する\ ``Glground.draw_with_norm``,
+頂点ごとにテクスチャ座標の設定が可能な\ ``Glground.draw_with_tex``,
+``Glground.draw_with_tex_3d``\ などがあります.
+それぞれの関数についての詳しい説明は\ `GLground
+リファレンス <../pgutil.html#pgutil.core.GLground>`__\ を参照してください.

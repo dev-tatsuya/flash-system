@@ -1,0 +1,134 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>0. はじめに &#8212; pgutil 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1. ウィンドウの作成" href="tutorial1.html" />
+    <link rel="prev" title="pgutil リファレンス" href="../pgutil.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial1.html" title="1. ウィンドウの作成"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../pgutil.html" title="pgutil リファレンス"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="header-n35">
+<span id="id1"></span><h1>0. はじめに<a class="headerlink" href="#header-n35" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pgutil">
+<span id="header-n37"></span><h2>pgutilとは<a class="headerlink" href="#pgutil" title="Permalink to this headline">¶</a></h2>
+<p>pgutilは様々な種類のデータを最低限のコードで高速,
+インタラクティブに可視化することに重点を置いたデータ可視化ライブラリです.</p>
+<p>pgutilはPlaygroundとGLgroundという2つのクラスからなり,
+用途に応じてこの2つのクラスのうちどちらかを使用することになります.</p>
+<p>Playgroundはpythonのゲーム作成用ライブラリpygameをベースにしたクラスで主に2次元の描画に特化したクラスになります.
+このクラスでは2次元データの可視化や基本的な図形の描画,
+ピクセル単位でのウィンドウの表示内容の操作などに便利な様々な関数を使用することができます.</p>
+<p>GLgroundはpygameとオープンソースの3D描画ライブラリOpenGLをベースにしたクラスで主に3次元の描画に特化したクラスになります.
+このクラスでは3次元データの可視化や2次元データの3次元空間上での可視化,
+大量の頂点からなる複雑な図形の描画などに便利な様々な関数を提供しています.</p>
+<p>また,
+PlaygroundとGLgroundの両方で定義済みの関数を特定のキーやマウスのボタンに関連付けるといった形でインタラクティブなプログラムを最低限のコードで作成できる仕組みを利用することができます.</p>
+</div>
+<div class="section" id="header-n44">
+<span id="id2"></span><h2>インストール<a class="headerlink" href="#header-n44" title="Permalink to this headline">¶</a></h2>
+<p>pgutilは現在一般公開されていないため,
+pipを使用してインストールすることはできません. このため,
+pgutilのソースコードが格納されたフォルダ(基本的にpgutilという名前です.)をpythonがモジュールをインポート可能な位置に置くことでインストールを行います.
+もしもpythonの開発にPyCharmを使用しているのであればプロジェクトフォルダにpgutilのソースコードが格納されたフォルダを置くのが良いでしょう.</p>
+<p>また, pgutilは外部ライブラリのpygameとPyOpenGLに依存しているため,
+この2つのライブラリを別途インストールする必要があります.
+これらのライブラリのインストールはpip経由で行うことができるためAnaconda
+Promptを開いて</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pygame</span>
+</pre></div>
+</div>
+<p>と</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">PyOpenGL</span>
+</pre></div>
+</div>
+<p>のコマンドを入力することによってインストールが可能です.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../pgutil.html"
+                        title="previous chapter">pgutil リファレンス</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial1.html"
+                        title="next chapter">1. ウィンドウの作成</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial1.html" title="1. ウィンドウの作成"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../pgutil.html" title="pgutil リファレンス"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, M.Yusuke.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

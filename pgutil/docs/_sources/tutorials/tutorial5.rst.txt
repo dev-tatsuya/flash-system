@@ -1,0 +1,35 @@
+.. _header-n0:
+
+5. Playground - 2次元データの可視化
+===================================
+
+.. code:: python
+
+   import pgutil
+   import numpy as np
+
+   pg = pgutil.Playground()
+
+   # x, y座標を表す2次元配列を生成する
+   y, x = np.meshgrid(np.linspace(0, 4 * np.pi, 128), np.linspace(0, 4 * np.pi, 128))
+
+   while pg.run():
+       # 描画用2次元配列の生成
+       z = np.cos(x + pg.totaltick * 0.1) * np.sin(y + pg.totaltick * 0.2)
+
+       # 2次元配列を描画
+       pg.transform_blit(z)
+
+Playgroundでは2次元データを高速に可視化するいくつかのメソッドを提供しています.
+
+``Playground.transform_blit``\ はこうしたメソッドのうち最も基本的なもので,
+上の例では引数にとった2次元配列を配列の最小値を黒で,
+配列の最大値を\ ``Playground.col``\ 指定された色で描画します.
+
+``Playground.transform_blit``\ は引数に描画対象の配列以外も取ることができ、これによって描画における下限,
+上限の値を設定することができます.
+
+似たような関数に\ ``Playground.transform_blit_smooth``\ や\ ``Playground.transform_blit_cmap``,
+``Playground.transform_blit_3d``\ があります.
+それぞれの関数についての詳しい説明は\ `Playground
+リファレンス <../pgutil.html#pgutil.core.Playground>`__\ を確認してください.

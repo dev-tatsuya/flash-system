@@ -1,1 +1,7 @@
+ac_change
+ac_no_change
+dc_change
 dc_no_change
+test_c.bin
+dc/change/output/*
+test.dat

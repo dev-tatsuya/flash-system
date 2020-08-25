@@ -1,0 +1,21 @@
+pgutil リファレンス
+===================
+
+
+pgutil\.core module
+-------------------
+
+.. automodule:: pgutil.core
+    :members: __PgBase, Playground, GLground
+    :undoc-members:
+    :show-inheritance:
+
+pgutil\._drawutil module
+------------------------
+
+.. automodule:: pgutil._drawutil
+    :members: DrawWrapper, GfxWrapper
+    :undoc-members:
+    :show-inheritance:
+
+

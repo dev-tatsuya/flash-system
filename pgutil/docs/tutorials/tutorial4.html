@@ -1,0 +1,124 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>4. Playground - 基本図形の描画 &#8212; pgutil 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. Playground - 2次元データの可視化" href="tutorial5.html" />
+    <link rel="prev" title="3. キー, マウスへの機能の割り当て" href="tutorial3.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial5.html" title="5. Playground - 2次元データの可視化"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial3.html" title="3. キー, マウスへの機能の割り当て"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="playground">
+<span id="header-n0"></span><h1>4. Playground - 基本図形の描画<a class="headerlink" href="#playground" title="Permalink to this headline">¶</a></h1>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pgutil</span>
+
+<span class="n">pg</span> <span class="o">=</span> <span class="n">pgutil</span><span class="o">.</span><span class="n">Playground</span><span class="p">()</span>
+
+<span class="c1"># 毎フレーム画面を塗りつぶすように設定</span>
+<span class="n">pg</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="k">while</span> <span class="n">pg</span><span class="o">.</span><span class="n">run</span><span class="p">():</span>
+<span class="c1"># 直線の描画</span>
+<span class="n">pg</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">450</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># 長方形の描画</span>
+<span class="n">pg</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">))</span>
+<span class="c1"># マウスカーソルの位置に円を描画</span>
+<span class="n">pg</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">circle</span><span class="p">((</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">pg</span><span class="o">.</span><span class="n">mouse</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Playgroundでは基本図形の描画は<code class="docutils literal notranslate"><span class="pre">Playground.draw</span></code>または<code class="docutils literal notranslate"><span class="pre">Playground.gfxdraw</span></code>以下の名前空間の関数を使用して行います.
+これらの名前空間はpygameにおける<a class="reference external" href="http://westplain.sakuraweb.com/translate/pygame/Draw.cgi">drawモジュール</a>と<a class="reference external" href="http://westplain.sakuraweb.com/translate/pygame/Gfxdraw.cgi">gfxdrawモジュール</a>に対応しています.
+それぞれの関数の詳細な使い方は<a class="reference external" href="../pgutil.html#pgutil._drawutil.DrawWrapper">DrawWrapper
+リファレンス</a>及び<a class="reference external" href="../pgutil.html#pgutil._drawutil.GfxWrapper">GfxWrapper
+リファレンス</a>を確認してください.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Playground.fill</span></code>は画面の塗りつぶしを管理するフラグでTrueの場合<code class="docutils literal notranslate"><span class="pre">Playground.back_col</span></code>で指定された色で毎フレーム画面を塗りつぶして初期化します.
+<code class="docutils literal notranslate"><span class="pre">Playground.fill</span></code>がFalseの場合,
+画面の更新時に塗りつぶしが行われず、2フレーム以降の描画はその前のフレームの内容を上書きしたものとなります.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial3.html"
+                        title="previous chapter">3. キー, マウスへの機能の割り当て</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial5.html"
+                        title="next chapter">5. Playground - 2次元データの可視化</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial5.html" title="5. Playground - 2次元データの可視化"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial3.html" title="3. キー, マウスへの機能の割り当て"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, M.Yusuke.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

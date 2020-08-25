@@ -1,0 +1,155 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>2. 基本的な操作 &#8212; pgutil 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. キー, マウスへの機能の割り当て" href="tutorial3.html" />
+    <link rel="prev" title="1. ウィンドウの作成" href="tutorial1.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial3.html" title="3. キー, マウスへの機能の割り当て"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial1.html" title="1. ウィンドウの作成"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="header-n57">
+<span id="id1"></span><h1>2. 基本的な操作<a class="headerlink" href="#header-n57" title="Permalink to this headline">¶</a></h1>
+<p>pgutilで初期状態で機能が設定されているキーの一覧は以下のとおりです.</p>
+<p>この他にもプログラム内で特定のキーに関数を紐付けることで機能を追加することができます.</p>
+<div class="section" id="playgroundglground">
+<span id="header-n61"></span><h2>PlaygroundとGLgroundの両方で使用可能<a class="headerlink" href="#playgroundglground" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>space<ul>
+<li>再生, 停止状態を表すbool値<code class="docutils literal notranslate"><span class="pre">Playground.ticking</span></code>を反転させ,
+ウィンドウ作成時からのフレーム数を表すint型変数<code class="docutils literal notranslate"><span class="pre">Playground.totaltick</span></code>のカウントの増加を切り替えます.</li>
+<li>これらの変化がpgutilの動作に直接影響を及ぼすことはありませんが,
+プログラム内で<code class="docutils literal notranslate"><span class="pre">Playground.ticking</span></code>または<code class="docutils literal notranslate"><span class="pre">Playground.totaltick</span></code>を受け取ることでspaceキーで再生,
+一時停止を切り替える機能を実装することができます.</li>
+</ul>
+</li>
+<li>F2<ul>
+<li>スクリーンショットを撮影します.</li>
+<li>画像ファイルは実行したpythonスクリプトと同じ階層に現在の日付時刻の名前で保存されます.</li>
+</ul>
+</li>
+<li>F3<ul>
+<li>デバッグモードを有効化します.</li>
+<li>このモードでは画面上部にfpsが表示され,
+負荷の状況を大まかに知ることができる他に, GLgroundではx, y,
+z軸を表すR, G, Bの直線が表示されます.</li>
+<li>また,デバッグモードでは
+<code class="docutils literal notranslate"><span class="pre">Playground.debug_flag</span></code>がTrueになるので,
+プログラム内で受け取って条件分岐に使用することもできます.</li>
+</ul>
+</li>
+<li>F11<ul>
+<li>全画面モードの切替を行います.</li>
+</ul>
+</li>
+<li>Esc<ul>
+<li>ウィンドウを閉じてプログラムを終了します.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="glground">
+<span id="header-n96"></span><h2>GLgroundでのみ使用可能<a class="headerlink" href="#glground" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>矢印キー<ul>
+<li>描画領域を回転させます.</li>
+</ul>
+</li>
+<li>shuft+矢印キー<ul>
+<li>描画領域を平行移動させます.</li>
+</ul>
+</li>
+<li>PgUp, PgDown<ul>
+<li>描画領域の拡大, 縮小を行います.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial1.html"
+                        title="previous chapter">1. ウィンドウの作成</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial3.html"
+                        title="next chapter">3. キー, マウスへの機能の割り当て</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial3.html" title="3. キー, マウスへの機能の割り当て"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial1.html" title="1. ウィンドウの作成"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, M.Yusuke.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

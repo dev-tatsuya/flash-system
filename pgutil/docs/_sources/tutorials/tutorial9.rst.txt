@@ -1,0 +1,62 @@
+.. _header-n0:
+
+9. GLground - 静的データの可視化
+================================
+
+GLgroundのデータ可視メソッドは静的な(時間変化しない)データを高速に描画する仕組みを持っています.
+
+.. code:: python
+
+   import pgutil
+   import numpy as np
+
+   # 空間分割数の指定
+   n = 256
+
+   pg = pgutil.GLground()
+
+   # x, y, z座標を表す3次元配列を生成する
+   y, x, z = np.meshgrid(np.linspace(0, 2 * np.pi, n), np.linspace(0, 2 * np.pi, n), np.linspace(0, 2 * np.pi, n))
+   # 描画用3次元配列の生成
+   w = np.cos(x) * np.cos(y) * np.cos(z)
+
+   # マーチングキューブ法のデータを準備
+   mc_verts, mc_norms = pg.gen_marching_data(w, 0.5)
+   # ボクセル描画用のデータを準備
+   vx_verts, vx_colors = pg.gen_voxel_data(w < -0.5)
+   # 3次元ヒートマップ描画用のデータを準備
+   pg.bind_tex_cube(w)
+
+   while pg.run():
+       # マーチングキューブデータの描画
+       pg.draw_with_norm(mc_verts, pgutil.GL_TRIANGLES, mc_norms)
+       # ボクセルデータの描画
+       pg.draw_with_color(vx_verts, pgutil.GL_QUADS, vx_colors)
+       # 3次元ヒートマップデータの描画
+       pg.draw_tex_cube(mouse=True)
+
+上の例は\ `8. GLground -
+3次元データの可視化 <tutorial8.html>`__\ のサンプルプログラムでの入力を時間変化がないものにして高速に描画ができるように書き換えたプログラムです.
+ただし、空間分割数が\ `8. GLground -
+3次元データの可視化 <tutorial8.html>`__\ のプログラムよりも大きな値になっています.
+
+静的なデータの可視化は基本的に\ ``GLground.gen``\ で始まる名前のメソッドによる描画用データの生成とそれを描画する\ ``GLground.draw``\ から始まる関数からなります.
+
+描画用データの生成用メソッドの引数は基本的に\ `8. GLground -
+3次元データの可視化 <tutorial8.html>`__\ で紹介した直接描画を行うメソッドと同様のものになっています.
+
+実際に描画を行うメソッドは\ `6. GLground -
+頂点の描画 <tutorial6.html>`__\ で紹介した関数で,
+それぞれの描画方法に対してどの関数,
+描画モードを使用すればよいかは\ `GLground
+リファレンス <../pgutil.html#pgutil.core.GLground>`__\ の描画用データの生成メソッドの説明で確認が可能です.
+
+3次元ヒートマップの静的な描画の方法は他の可視化方法とは異なり、描画用データの生成の時点で内部的に生成されたテクスチャが保存されるため頂点座標のデータなどを受け取る必要はありません.
+また,
+マウスでの操作を可能にするためなどの理由で実際に描画を行う関数も専用のものを使う必要があります.
+この関数は上の例に示したように直接描画を行う関数と同一の関数ですが,
+引数に配列を指定せずに呼び出すことですでに生成されたテクスチャを用いて描画を行う事ができます.
+
+また, 上の例では3次元の可視化を例にとって説明を行いましたが, `7.
+GLground -
+2次元データの可視化 <tutorial7.html>`__\ で紹介した2次元データの可視化も3次元データの可視化と同様に静的なデータを高速に可視化することができます.

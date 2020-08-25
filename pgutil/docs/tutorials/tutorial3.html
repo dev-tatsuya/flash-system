@@ -1,0 +1,148 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>3. キー, マウスへの機能の割り当て &#8212; pgutil 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Playground - 基本図形の描画" href="tutorial4.html" />
+    <link rel="prev" title="2. 基本的な操作" href="tutorial2.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial4.html" title="4. Playground - 基本図形の描画"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial2.html" title="2. 基本的な操作"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="header-n11">
+<span id="id1"></span><h1>3. キー, マウスへの機能の割り当て<a class="headerlink" href="#header-n11" title="Permalink to this headline">¶</a></h1>
+<p>pgutilでは特定のキーやマウスのボタンに関数を紐付けることによってキーやマウスのボタンに機能を割り当てます.</p>
+<p>関数の紐付けは関数にデコレータを適用するか専用の登録用の関数を使用することで行います.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pgutil</span>
+
+<span class="n">pg</span> <span class="o">=</span> <span class="n">pgutil</span><span class="o">.</span><span class="n">Playground</span><span class="p">()</span>
+
+
+<span class="c1"># デコレータを用いた特定のキーへの機能の割り当て</span>
+<span class="nd">@pg</span><span class="o">.</span><span class="n">keyfunc</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">key_pressed0</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A is pressed.&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">key_pressed1</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B is pressed.&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># 登録用の関数を用いた特定のキーへの機能の割り当て</span>
+<span class="n">pg</span><span class="o">.</span><span class="n">set_key_func</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">key_pressed1</span><span class="p">)</span>
+
+
+<span class="c1"># デコレータを用いたマウスのボタンへの機能の割り当て</span>
+<span class="c1"># 登録した関数は引数としてマウスがクリックされた座標を受け取れるようになっている必要がある.</span>
+<span class="nd">@pg</span><span class="o">.</span><span class="n">mousedownfunc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">mouse_clicked</span><span class="p">(</span><span class="n">pos</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Mouse clicked at </span><span class="si">{pos}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 画面モードが切り替わった際に呼び出される関数の設定</span>
+<span class="c1"># 対象の関数は登録時に一度自動的に呼び出される</span>
+<span class="nd">@pg</span><span class="o">.</span><span class="n">screenmodefunc</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">screen_changed</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Current screen size is </span><span class="si">{pg.size}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="n">pg</span><span class="o">.</span><span class="n">run</span><span class="p">():</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>キーの指定方法にはpygameの特定のキーを表す整数定数(<code class="docutils literal notranslate"><span class="pre">pgutil.K_F1</span></code>などのようにして取得)かキーの名前を表す文字列が指定可能です.
+指定可能なキーの一覧は<a class="reference external" href="http://westplain.sakuraweb.com/translate/pygame/Key.cgi">pygameドキュメント</a>で確認が可能です.</p>
+<p>マウスのボタンの指定はマウスのボタン番号を指定することによって行います.</p>
+<p>通常、左クリックは1でミドルクリックが2,
+右クリックが3でその後にマウスホイール, サイドボタンなどが続きます.</p>
+<p>キー,
+マウスのボタンへの関数の登録以外にpgutilでは画面モードの切り替わり時に呼び出される関数を登録することができます(<code class="docutils literal notranslate"><span class="pre">Playground.set_screenmode</span></code>).
+通常,
+この機能は画面サイズに依存する処理を行うプログラムで画面モードの切り替わり時にウィンドウサイズ<code class="docutils literal notranslate"><span class="pre">Playground.size</span></code>を参照して自動で調整を行うために使用されます.
+また、登録した関数は登録時に一度呼び出されること、複数の関数が登録可能でその場合は登録した順番に呼び出されるという点でキー,
+マウスのボタンへの関数の登録と異なります.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial2.html"
+                        title="previous chapter">2. 基本的な操作</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial4.html"
+                        title="next chapter">4. Playground - 基本図形の描画</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial4.html" title="4. Playground - 基本図形の描画"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial2.html" title="2. 基本的な操作"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, M.Yusuke.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

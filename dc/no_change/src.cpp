@@ -5,7 +5,10 @@
 #include <stdlib.h>
 #include <time.h> 
 #include <math.h>
+#include <iostream>
 // #include "wingxa.h"
+
+using namespace std;
 
 #define DRND(x) ((double)(x)/RAND_MAX*rand())
 #define ND 128 //分割数
@@ -48,6 +51,7 @@ void graph_T();
 void graph_yVa();
 
 int main(void){
+	cout << "main start!" << endl;
 
 	int im, ip, jm, jp;
 	double K01, K02;
@@ -101,12 +105,14 @@ int main(void){
 	den=6.05e3;
 	Cp=0.66e3*den;
 
-//****** 場の読み込み ********************
+	//****** 場の読み込み ********************
 	datin();
 	datin2();
 	shokiha_V();	//初期電位場の設定
 
-//*** 繰り返し計算スタ－ト *******************************************
+	//*** 繰り返し計算スタ－ト *******************************************
+
+	cout << "1e^7 times start" << endl;
 
 	for(time1=0.;time1<=time1max;time1+=1.){
 
@@ -131,12 +137,14 @@ int main(void){
 		sum2=0.0;
 		for(i=0;i<=ndm;i++){for(j=0;j<=ndm;j++){sum2+=Vh[i][j];}}
 
-	if(fabs(sum1-sum2)<=1.0e-8){break;} 
-	else{sum1=sum2;}
+		if(fabs(sum1-sum2)<=1.0e-8){break;} 
+		else{sum1=sum2;}
 
 	}//time1
 
-//***********************************************
+	cout << "1e^7 times end" << endl;
+
+	//***********************************************
 
 	for(i=0;i<=ndm;i++){
 		for(j=0;j<=ndm;j++){
@@ -159,7 +167,7 @@ int main(void){
 		}
 	}
 
-//*****************************************
+	//*****************************************
 
 	for(i=0;i<=ndm;i++){
 		for(j=0;j<=ndm;j++){
@@ -182,12 +190,15 @@ int main(void){
 	// datsave_delT();
 	// datsave_yVa();
 	// if(keypress()){return 0;}
+	cout << "main end" << endl;
 	return 0;
 }//main
 
 
 //*********** 組織形態情報の入力 **************************
 void datin(){
+	cout << "datin" << endl;
+	
 	FILE   *datin0;
 
  	double ceM, ceP;
@@ -196,7 +207,7 @@ void datin(){
 
     ceM=0.0001;  ceP=0.9999;
 
-	datin0 = fopen("test.dat", "r");
+	datin0 = fopen("dc/no_change/data/test.dat", "r");
 
 	start: ;
 	fscanf(datin0, "%lf\n", &time2);
@@ -232,14 +243,18 @@ void datin(){
 
 	if (time2 != XX) {goto start;}
 	fclose(datin0);
+
+	cout << "datin end" << endl;
 }
 
 
 //*********** 組織形態情報の入力 **************************
 void datin2(){
+	cout << "datin2" << endl;
+
 	FILE		*datin1;
 
-	datin1 = fopen("temp3.dat", "r");
+	datin1 = fopen("dc/no_change/data/temp3.dat", "r");
 	//fscanf(datin0, "%lf", &time1);
 
 	for(i=0;i<vava;i++){
@@ -247,10 +262,13 @@ void datin2(){
 	}
 
 	fclose(datin1);
+
+	cout << "datin2 end" << endl;
 }
 
 //************[初期電位場]*************************
 void shokiha_V(){
+	cout << "shokiha_V" << endl;
 
 	double rnd0; 
   	srand(time(NULL)); // 乱数初期化
@@ -266,6 +284,7 @@ void shokiha_V(){
 		Vh[0][j]=Vh[1][j]=V2;
 	}
 
+	cout << "shokiha_V end" << endl;
 }
 
 //******************************************************************

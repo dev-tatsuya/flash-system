@@ -1,0 +1,134 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>6. GLground - 頂点の描画 &#8212; pgutil 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7. GLground - 2次元データの可視化" href="tutorial7.html" />
+    <link rel="prev" title="5. Playground - 2次元データの可視化" href="tutorial5.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial7.html" title="7. GLground - 2次元データの可視化"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial5.html" title="5. Playground - 2次元データの可視化"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="glground">
+<span id="header-n0"></span><h1>6. GLground - 頂点の描画<a class="headerlink" href="#glground" title="Permalink to this headline">¶</a></h1>
+<p>GLgroundはオープンソース3次元描画ライブラリOpenGLをベースにした描画用のクラスで,
+Playgroundとは異なり3次元の描画に特化したクラスになっています.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pgutil</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">pg</span> <span class="o">=</span> <span class="n">pgutil</span><span class="o">.</span><span class="n">GLground</span><span class="p">()</span>
+
+<span class="c1"># 描画される点のサイズを大きくする</span>
+<span class="n">pg</span><span class="o">.</span><span class="n">set_point_size</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># -1から1のランダムな数で頂点の座標を表す配列を作成</span>
+<span class="n">verts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="k">while</span> <span class="n">pg</span><span class="o">.</span><span class="n">run</span><span class="p">():</span>
+    <span class="c1"># 頂点の座標に点を描画</span>
+    <span class="n">pg</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">verts</span><span class="p">)</span>
+    <span class="c1"># 頂点同士を線で接続</span>
+    <span class="n">pg</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">verts</span><span class="p">,</span> <span class="n">pgutil</span><span class="o">.</span><span class="n">GL_LINE_STRIP</span><span class="p">,</span> <span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,))</span>
+</pre></div>
+</div>
+<p>上に示した例は乱数で頂点の座標を生成し、頂点の座標の位置に点を描画したあとに頂点同士を線でつないで描画するサンプルプログラムです.</p>
+<p>GLgroundの頂点描画系の関数は基本的に1つめの引数として頂点の座標を保持する配列を取り、2つめの引数にはOpenGLの描画モードを指定する定数を,
+3つめ以降の引数にそれぞれの関数に固有な引数を取ります.</p>
+<p>上に示した例では点を描画する際には配列のみを引数として渡すことで,
+描画モードをデフォルトの<code class="docutils literal notranslate"><span class="pre">pgutil.GL_POINTS</span></code>に,
+描画色に<code class="docutils literal notranslate"><span class="pre">GLground.col</span></code>を使用して描画を行います.
+一方、線の描画の際には頂点の配列に加えて描画モードに頂点同士を点でつなぐ<code class="docutils literal notranslate"><span class="pre">pgutil.GL_LINE_STRIP</span></code>を,
+描画色に<code class="docutils literal notranslate"><span class="pre">(1.,0.,0.)</span></code>で示される赤色を用いて描画を行います.</p>
+<p>同様の関数に頂点ごとに異なる色での描画が可能な<code class="docutils literal notranslate"><span class="pre">Glground.draw_with_color</span></code>,
+頂点ごとに法線ベクトルを設定して陰影処理を行った上で描画する<code class="docutils literal notranslate"><span class="pre">Glground.draw_with_norm</span></code>,
+頂点ごとにテクスチャ座標の設定が可能な<code class="docutils literal notranslate"><span class="pre">Glground.draw_with_tex</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Glground.draw_with_tex_3d</span></code>などがあります.
+それぞれの関数についての詳しい説明は<a class="reference external" href="../pgutil.html#pgutil.core.GLground">GLground
+リファレンス</a>を参照してください.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial5.html"
+                        title="previous chapter">5. Playground - 2次元データの可視化</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial7.html"
+                        title="next chapter">7. GLground - 2次元データの可視化</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial7.html" title="7. GLground - 2次元データの可視化"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial5.html" title="5. Playground - 2次元データの可視化"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, M.Yusuke.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

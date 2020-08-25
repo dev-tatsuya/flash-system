@@ -1,0 +1,137 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>8. GLground - 3次元データの可視化 &#8212; pgutil 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9. GLground - 静的データの可視化" href="tutorial9.html" />
+    <link rel="prev" title="7. GLground - 2次元データの可視化" href="tutorial7.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial9.html" title="9. GLground - 静的データの可視化"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial7.html" title="7. GLground - 2次元データの可視化"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="glground-3">
+<span id="header-n0"></span><h1>8. GLground - 3次元データの可視化<a class="headerlink" href="#glground-3" title="Permalink to this headline">¶</a></h1>
+<p>GLgroundでは2次元データと3次元データを高速に可視化するいくつかのメソッドを提供しています.</p>
+<p>ここではGLgroundによる3次元データの可視化について説明します.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pgutil</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># 空間分割数の指定</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">32</span>
+
+<span class="n">pg</span> <span class="o">=</span> <span class="n">pgutil</span><span class="o">.</span><span class="n">GLground</span><span class="p">()</span>
+
+<span class="c1"># x, y, z座標を表す3次元配列を生成する</span>
+<span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+
+
+<span class="k">while</span> <span class="n">pg</span><span class="o">.</span><span class="n">run</span><span class="p">():</span>
+    <span class="c1"># 描画用3次元配列の生成</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">pg</span><span class="o">.</span><span class="n">totaltick</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">pg</span><span class="o">.</span><span class="n">totaltick</span> <span class="o">*</span> <span class="mf">0.02</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="n">pg</span><span class="o">.</span><span class="n">totaltick</span> <span class="o">*</span> <span class="mf">0.03</span><span class="p">)</span>
+
+    <span class="c1"># 0.5より大きい部分を不透明としてマーチングキューブ法により描画</span>
+    <span class="n">pg</span><span class="o">.</span><span class="n">draw_marching_cubes</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1"># -0.5より小さい部分を不透明としてボクセルデータとして描画</span>
+    <span class="n">pg</span><span class="o">.</span><span class="n">draw_voxel</span><span class="p">(</span><span class="n">w</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1"># 断面がマウスで動かせるヒートマップとして描画</span>
+    <span class="n">pg</span><span class="o">.</span><span class="n">draw_tex_cube</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">mouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>上の例は3次元配列に格納されたデータをマーチングキューブ法,
+ボクセル描画と3次元ヒートマップの3つの方法で描画し、それらを重ねるサンプルプログラムです.</p>
+<p>GLgroundで提供される3次元データの可視化メソッドの使い方は一部を除いて<a class="reference external" href="tutorial7.html">2次元データの可視化メソッド</a>と似たものになっていて、これらのメソッドと同様に追加の引数によって描画の条件を変更することができます.</p>
+<p>上の例に登場する<code class="docutils literal notranslate"><span class="pre">GLground.draw_marching_cubes</span></code>は引数にとった3次元配列をマーチングキューブ法に従って陰影処理のなされた曲面によって描画します.
+上の例では第2引数に描画の際のしきい値を指定していますが,
+指定がない場合は入力の配列の最大値と最小値の平均がしきい値に設定されます.</p>
+<p><code class="docutils literal notranslate"><span class="pre">GLground.draw_voxel</span></code>は引数にとった3次元配列をボクセルとして描画します.
+他のメソッドと異なり, 入力には真偽値型の配列が必要なため注意が必要です.</p>
+<p><code class="docutils literal notranslate"><span class="pre">GLground.draw_tex_cube</span></code>は引数にとった3次元配列を3次元のヒートマップとして描画します.
+上の例では引数での指定によってヒートマップの断面がマウスで操作可能になっていますが,
+直方体の頂点の座標を直接指定して描画することも可能です.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial7.html"
+                        title="previous chapter">7. GLground - 2次元データの可視化</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial9.html"
+                        title="next chapter">9. GLground - 静的データの可視化</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial9.html" title="9. GLground - 静的データの可視化"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial7.html" title="7. GLground - 2次元データの可視化"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pgutil 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, M.Yusuke.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>
