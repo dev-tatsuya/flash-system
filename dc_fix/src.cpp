@@ -207,7 +207,7 @@ void datin(){
 
     ceM=0.0001;  ceP=0.9999;
 
-	datin0 = fopen("dc/no_change/data/test.dat", "r");
+	datin0 = fopen("dc_fix/data/test.dat", "r");
 
 	start: ;
 	fscanf(datin0, "%lf\n", &time2);
@@ -254,7 +254,7 @@ void datin2(){
 
 	FILE		*datin1;
 
-	datin1 = fopen("dc/no_change/data/temp3.dat", "r");
+	datin1 = fopen("dc_fix/data/temp3.dat", "r");
 	//fscanf(datin0, "%lf", &time1);
 
 	for(i=0;i<vava;i++){

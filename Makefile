@@ -1,16 +1,16 @@
 compile:
-	g++ -o dc/no_change/dc_no_change dc/no_change/src.cpp
+	g++ -o dc_fix/exec dc_fix/src.cpp
 
-run_dc_no_change:
-	g++ -o dc/no_change/dc_no_change dc/no_change/src.cpp
-	./dc/no_change/dc_no_change
+run_dc_fix:
+	g++ -o dc_fix/exec dc_fix/src.cpp
+	./dc_fix/exec
 
-run_dc_change:
-	g++ -o dc/change/dc_change dc/change/src.cpp
-	rm -f dc/change/bin/* dc/change/output/test_c/*
-	./dc/change/dc_change
+run_dc_dev:
+	g++ -o dc_dev/exec dc_dev/src.cpp
+	rm -f dc_dev/bin/* dc_dev/output/conc/*
+	./dc_dev/exec
 	python3 read_test_c.py
 
 clean:
-	rm -f dc/no_change/dc_no_change
-	rm -f dc/change/dc_change
+	rm -f dc_fix/exec
+	rm -f dc_dev/exec

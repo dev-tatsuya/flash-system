@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pgutil
 
-fp = open("dc/change/bin/test_c.bin", "rb")
+fp = open("dc_dev/bin/test_c.bin", "rb")
 c = np.fromfile(fp, dtype=np.float64)
 cc = c.reshape(-1, 128, 128)
 pg = pgutil.Playground()
@@ -21,5 +21,5 @@ while pg.run():
     pg.transform_blit_3d(drawing)
     nn = 2000 * ind
     if ind % 1 == 0:
-        pg.take_screenshot("dc/change/output/test_c/c_%d.png" %(nn))
+        pg.take_screenshot("dc_dev/output/conc/c_%d.png" %(nn))
 fp.close()

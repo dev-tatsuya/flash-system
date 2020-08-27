@@ -1,7 +1,4 @@
-ac_change
-ac_no_change
-dc_change
-dc_no_change
-dc/change/bin/*
-dc/change/output/*
+dc_dev/bin/*
+dc_dev/output/*
 test.dat
+exec

@@ -75,10 +75,6 @@ void datsave_si();
 void datsave_D();
 void datsave_I();
 
-void datsave();
-void datsave2();
-void datsave3();
-
 void datin();
 void datin2();
 void datin3();
@@ -128,33 +124,6 @@ int main(void){
 	int hozon;
 
 	FILE *stream;
-
-	// stream = fopen("test_c.bin", "w");
-	// fclose(stream);
-	// stream = fopen("test_D.bin", "w");
-	// fclose(stream);
-	// stream = fopen("test_delT.bin", "w");
-	// fclose(stream);
-	// stream = fopen("test_T.bin", "w");
-	// fclose(stream);
-	// stream = fopen("test_sig.bin", "w");
-	// fclose(stream);
-	// stream = fopen("test_W.bin", "w");
-	// fclose(stream);
-	// stream = fopen("test_yVa.bin", "w");
-	// fclose(stream);
-	// stream = fopen("test_V.bin", "w");
-	// fclose(stream);
-	// stream = fopen("test_I.bin", "w");
-	// fclose(stream);
-	// stream = fopen("I.dat", "w");
-	// fclose(stream);
-	// stream = fopen("D.dat", "w");
-	// fclose(stream);
-	// stream = fopen("dc/change/data/TT6442.dat", "w");
-	// fclose(stream);
-	// stream = fopen("dc/change/data/TT4242.dat", "w");
-	// fclose(stream);
 
 	// printf("炉温= ");
 	// scanf("%lf",&T_ro);
@@ -548,9 +517,6 @@ int main(void){
 		datsave_si();
 		datsave_D();
 		datsave_I();
-
-		// datsave();
-		// datsave2();
 	} 	//組織の表示
 
 	// if(keypress()){return 0;}	//キー待ち状態
@@ -702,48 +668,13 @@ double G_T_V(double temp){
 	return(y);
 }
 
-//************[濃度波デ－タの保存]************************************
-void datsave(){
-
-	FILE		*stream;
-
-	stream = fopen("TT6442.dat", "a");
-	//fprintf(stream, "%e \n", time1);
-	// for(i=0;i<=ndm;i++){
-		// for(j=0;j<=ndm;j++){
-			// fprintf(stream, "%e\n", W[64][42]*T0*KB/b1/b1/b1);
-			fprintf(stream, "%e\n", T[64][42]*T0);
-		// }
-	// }
-	// fprintf(stream, "\n");
-	printf("time %lf\n", time1);
-	fclose(stream);
-}
-
-//************[濃度波デ－タの保存]************************************
-void datsave2(){
-
-	FILE		*stream;
-
-	stream = fopen("TT4242.dat", "a");
-	//fprintf(stream, "%e \n", time1);
-	// for(i=0;i<=ndm;i++){
-	// 	for(j=0;j<=ndm;j++){
-			// fprintf(stream, "%e\n", W[42][42]*T0*KB/b1/b1/b1);
-			fprintf(stream, "%e\n",T[42][42]*T0);
-	// 	}
-	// }
-	//fprintf(stream, "\n");
-	fclose(stream);
-}
-
 //*********** 組織形態情報の入力 **************************
 void datin()
 {
 	FILE		*datin0;
 	int 		i;
 
-	datin0 = fopen("dc/change/data/temp10.dat", "r");
+	datin0 = fopen("dc_dev/data/temp10.dat", "r");
 	//fscanf(datin0, "%lf", &time1);
 
 	for(i=0;i<vava;i++){
@@ -775,7 +706,7 @@ void datsave_c()
 	FILE		*stream;		//ストリームのポインタ設定
 	int 		i, j, k, p;		//整数
 
-	stream = fopen("dc/change/bin/test_c.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+	stream = fopen("dc_dev/bin/test_c.bin", "ab");	//書き込む先のファイルを追記方式でオープン
 	//printf("time %lf, 炉温%lf, T0%lf\n", time1, T_ro, T0);						//計算カウント数の表示
 	printf("time %lf\n", time1);
 
@@ -795,7 +726,7 @@ void datsave_V()
 	FILE		*stream;		//ストリームのポインタ設定
 	double V00[ND][ND];
 
-	stream = fopen("dc/change/bin/test_V.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+	stream = fopen("dc_dev/bin/test_V.bin", "ab");	//書き込む先のファイルを追記方式でオープン
 	//printf("time %f\n", time1);						//計算カウント数の表示
 
 		for (i = 0; i < nd; i++) {
@@ -815,7 +746,7 @@ void datsave_W()
 	FILE		*stream;		//ストリームのポインタ設定
 	double W00[ND][ND];
 
-	stream = fopen("dc/change/bin/test_W.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+	stream = fopen("dc_dev/bin/test_W.bin", "ab");	//書き込む先のファイルを追記方式でオープン
 	//printf("time %f\n", time1);						//計算カウント数の表示
 
 		for (i = 0; i < nd; i++) {
@@ -834,7 +765,7 @@ void datsave_T()
 	FILE		*stream;		//ストリームのポインタ設定
 	double T00[ND][ND];
 
-	stream = fopen("dc/change/bin/test_T.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+	stream = fopen("dc_dev/bin/test_T.bin", "ab");	//書き込む先のファイルを追記方式でオープン
 	//printf("time %f\n", time1);						//計算カウント数の表示
 
 		for (i = 0; i < nd; i++) {
@@ -853,7 +784,7 @@ void datsave_delT()
 	FILE		*stream;		//ストリームのポインタ設定
 	double delT00[ND][ND];
 
-	stream = fopen("dc/change/bin/test_delT.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+	stream = fopen("dc_dev/bin/test_delT.bin", "ab");	//書き込む先のファイルを追記方式でオープン
 	//printf("time %f\n", time1);						//計算カウント数の表示
 
 		for (i = 0; i < nd; i++) {
@@ -871,7 +802,7 @@ void datsave_yVa()
 {
 	FILE		*stream;		//ストリームのポインタ設定
 
-	stream = fopen("dc/change/bin/test_yVa.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+	stream = fopen("dc_dev/bin/test_yVa.bin", "ab");	//書き込む先のファイルを追記方式でオープン
 	//printf("time %f\n", time1);						//計算カウント数の表示
 
 		for (i = 0; i < nd; i++) {
@@ -891,7 +822,7 @@ void datsave_si()
 	FILE		*stream;		//ストリームのポインタ設定
 	double sig00[ND][ND];
 
-	stream = fopen("dc/change/bin/test_sig.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+	stream = fopen("dc_dev/bin/test_sig.bin", "ab");	//書き込む先のファイルを追記方式でオープン
 	//printf("time %f\n", time1);						//計算カウント数の表示
 
 		for (i = 0; i < nd; i++) {
@@ -910,7 +841,7 @@ void datsave_D()
 	FILE		*stream;		//ストリームのポインタ設定
 	double D00[ND][ND];
 
-	stream = fopen("dc/change/bin/test_D.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+	stream = fopen("dc_dev/bin/test_D.bin", "ab");	//書き込む先のファイルを追記方式でオープン
 	//printf("time %f\n", time1);						//計算カウント数の表示
 
 		for (i = 0; i < nd; i++) {
@@ -930,7 +861,7 @@ void datsave_I()
 	FILE		*stream;		//ストリームのポインタ設定
 	double jI00[ND][ND];
 
-	stream = fopen("dc/change/bin/test_I.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+	stream = fopen("dc_dev/bin/test_I.bin", "ab");	//書き込む先のファイルを追記方式でオープン
 
 		for (i = 0; i < nd; i++) {
 			for (j = 0; j < nd; j++) {
