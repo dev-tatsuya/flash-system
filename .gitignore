@@ -2,3 +2,5 @@ dc_dev/bin/*
 dc_dev/output/*
 test.dat
 exec
+
+.vscode/settings.json

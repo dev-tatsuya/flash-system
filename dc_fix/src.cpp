@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h> 
+#include <time.h>
 #include <math.h>
 #include <iostream>
 // #include "wingxa.h"
@@ -34,14 +34,14 @@ double VVa[VAVA];
 void datin();
 void datin2();
 void shokiha_V();
-double G_T_V(double temp); 
+double G_T_V(double temp);
 void datsave_c();
 void datsave_V();
 void datsave_E();
 void datsave_W();
 void datsave_T();
 void datsave_delT();
-void datsave_yVa(); 
+void datsave_yVa();
 
 void graph_c();
 void graph_V();
@@ -137,7 +137,7 @@ int main(void){
 		sum2=0.0;
 		for(i=0;i<=ndm;i++){for(j=0;j<=ndm;j++){sum2+=Vh[i][j];}}
 
-		if(fabs(sum1-sum2)<=1.0e-8){break;} 
+		if(fabs(sum1-sum2)<=1.0e-8){break;}
 		else{sum1=sum2;}
 
 	}//time1
@@ -198,11 +198,11 @@ int main(void){
 //*********** 組織形態情報の入力 **************************
 void datin(){
 	cout << "datin" << endl;
-	
+
 	FILE   *datin0;
 
  	double ceM, ceP;
-	double cmax, cmin; 
+	double cmax, cmin;
 	double time2;
 
     ceM=0.0001;  ceP=0.9999;
@@ -270,7 +270,7 @@ void datin2(){
 void shokiha_V(){
 	cout << "shokiha_V" << endl;
 
-	double rnd0; 
+	double rnd0;
   	srand(time(NULL)); // 乱数初期化
 
 	for(i=0;i<=ndm;i++){
@@ -294,7 +294,7 @@ double G_T_V(double temp){
 	double xT, alpha, y;
 
 		xT=temp-700.0;
-		T_left = (int)xT; 
+		T_left = (int)xT;
 		T_right =(int)xT + 1;          //xの含まれる範囲の両端を表すインデックス
 		if (T_left == 5300){ T_right = 5300; }    //データ点領域右端の補正
 		alpha = xT - (double)T_left;              //α、範囲左側との距離
@@ -453,9 +453,9 @@ void datsave_yVa()
 // 		for(j=0;j<=nd;j++){
 // 			x=1./nd*i+rad0;  igx=(ixmax-ixmin)/(xmax-xmin)*(x-xmin)+ixmin;
 // 			y=1./nd*j+rad0;  igy=(iymax-iymin)/(ymax-ymin)*(y-ymin)+iymin;
-// 			ii=i; jj=j;  
+// 			ii=i; jj=j;
 // 			if(i==nd){ii=0;}  if(j==nd){jj=0;}
-	
+
 // 			col=1.0-ch[i][j];
 
 // 			col_R=col_G=col_B=col;
@@ -497,9 +497,9 @@ void datsave_yVa()
 // 		for(j=0;j<=nd;j++){
 // 			x=1./nd*i+rad0;  igx=(ixmax-ixmin)/(xmax-xmin)*(x-xmin)+ixmin;
 // 			y=1./nd*j+rad0;  igy=(iymax-iymin)/(ymax-ymin)*(y-ymin)+iymin;
-// 			ii=i; jj=j;  
+// 			ii=i; jj=j;
 // 			if(i==nd){ii=0;}  if(j==nd){jj=0;}
-	
+
 // 			col=Vh[i][j]/0.3*255.0;
 
 // 			col_R=A+col*(D-A)/255.0;
@@ -544,9 +544,9 @@ void datsave_yVa()
 // 		for(j=0;j<=nd;j++){
 // 			x=1./nd*i+rad0;  igx=(ixmax-ixmin)/(xmax-xmin)*(x-xmin)+ixmin;
 // 			y=1./nd*j+rad0;  igy=(iymax-iymin)/(ymax-ymin)*(y-ymin)+iymin;
-// 			ii=i; jj=j;  
+// 			ii=i; jj=j;
 // 			if(i==nd){ii=0;}  if(j==nd){jj=0;}
-	
+
 // 			col=T[i][j]/1000.0*255.0;
 
 // 			col_R=A+col*(D-A)/255.0;
@@ -590,9 +590,9 @@ void datsave_yVa()
 // 		for(j=0;j<=nd;j++){
 // 			x=1./nd*i+rad0;  igx=(ixmax-ixmin)/(xmax-xmin)*(x-xmin)+ixmin;
 // 			y=1./nd*j+rad0;  igy=(iymax-iymin)/(ymax-ymin)*(y-ymin)+iymin;
-// 			ii=i; jj=j;  
+// 			ii=i; jj=j;
 // 			if(i==nd){ii=0;}  if(j==nd){jj=0;}
-	
+
 // 			col=delT[i][j]/1000.0*255.0;
 
 // 			col_R=A+col*(D-A)/255.0;
@@ -637,9 +637,9 @@ void datsave_yVa()
 // 		for(j=0;j<=nd;j++){
 // 			x=1./nd*i+rad0;  igx=(ixmax-ixmin)/(xmax-xmin)*(x-xmin)+ixmin;
 // 			y=1./nd*j+rad0;  igy=(iymax-iymin)/(ymax-ymin)*(y-ymin)+iymin;
-// 			ii=i; jj=j;  
+// 			ii=i; jj=j;
 // 			if(i==nd){ii=0;}  if(j==nd){jj=0;}
-	
+
 // 			col=(cVa[i][j]-0.015)/0.000001*255.0;
 // 			if(col>255.0){col=255.0;}
 // 			//printf("%lf ",col);

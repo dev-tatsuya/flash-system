@@ -4,24 +4,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h> 
+#include <time.h>
 #include <math.h>
-// #include "wingxa.h"
 
 #define DRND(x) ((double)(x)/RAND_MAX*rand())
-#define ND 128
-#define INX 400	          //描画window１辺(x方向)のピクセルサイズ
-#define INY 400	          //描画window１辺(y方向)のピクセルサイズ
-#define PI 3.1415956535
-#define RR 8.3144598      //[J/Kmol]気体定数
-#define FF 9.64853415e+04 //[C/mol] ファラデー定数   
-#define KB 1.38064852e-23 //[J/K]
-#define NA 6.02214086e23  //[/mol]
-#define VAVA 1300
+#define ND 128 //分割数
+#define RR 8.3144598      //気体定数 [J/Kmol]
+#define FF 9.64853415e+04 //ファラデー定数 [C/mol]
+#define KB 1.38064852e-23 //ボルツマン定数 [J/K]
+#define NA 6.02214086e23  //アボガドロ数 [/mol]
+#define VAVA 1300 //これはなんだ？
 
 int nd=ND, ndm=ND-1; //組織の分割
 int vava=VAVA+1;
-int i, j;
+int i, j; //index
 
 double D[ND][ND];
 double delt; //時間刻み
@@ -47,7 +43,7 @@ double cO2[ND][ND];
 double cVa[ND][ND], cVay[ND][ND];
 
 double sigma[ND][ND];
-double VVa[VAVA];
+double VVa[VAVA]; //構造空孔濃度 なぜ1300個？
 double jI[ND][ND];
 
 double ramuda[ND][ND];
@@ -62,8 +58,8 @@ double K02, e0; //電気伝導率
 double Kh[ND][ND], sigsum, Wsum;
 double Isum, sigmasum;
 
-void ini000(); //初期濃度波設定サブル－チン
-void shokiha_V(); 
+void set_init_conc(); //初期濃度波設定サブル－チン
+void set_init_electric_potential(); //初期電位場の設定
 
 void datsave_c();
 void datsave_V();
@@ -135,14 +131,14 @@ int main(void){
 	scanf("%d",&hozon);
 
 	T_ro=1650.0;
-	
+
 	e0=1.6021766208e-19; //[c]電気素量
 	T0=1200.0;
 
 	al=3.0;           //計算領域の１辺(μm)
 	al=1.0e-06*al;    //計算領域の１辺(m)
 	b1=al/(double)nd; //差分１ブロックのサイズ
-	
+
 	delt=0.0005;
 	//delt=0.00008;
 
@@ -182,8 +178,8 @@ int main(void){
 
 	//ramuda=3.0*b1/Dm/KB/Cp; //[W/mK] 熱伝導率→無次元化
 
-	ini000();//初期波の設定
-	shokiha_V();
+	set_init_conc();
+	set_init_electric_potential();
 	datin();
 	//datin3();
 	//printf("%e\n",b1*KB*T0*Dm);
@@ -314,8 +310,8 @@ int main(void){
 			if(j==ndm){jp=ndm;}  if(j==0) {jm=0;}
 
 			c2=c2h[i][j];  c1=1.-c2; if(c1<=0.){c1=1.0e-06;}
-			// D[i][j]=D0*exp(-Q0/T[i][j]/T0)/Dm*cVa[i][j]/0.015;           //無次元化   
-			D[i][j]=D0*exp(-Q0/T[i][j]/T0)/Dm;                
+			// D[i][j]=D0*exp(-Q0/T[i][j]/T0)/Dm*cVa[i][j]/0.015;           //無次元化
+			D[i][j]=D0*exp(-Q0/T[i][j]/T0)/Dm;
 
 			//--- 勾配拡散ポテンシャルの計算 --------------------------------------------
 			kai2_surf[i][j]=-2.0*kapa_c2*(c2h[ip][j]+c2h[im][j]+c2h[i][jp]+c2h[i][jm]-4.0*c2);    //無次元化
@@ -338,9 +334,9 @@ int main(void){
 			if(i==ndm){ip=ndm;}  if(i==0){im=0;}
 			if(j==ndm){jp=ndm;}  if(j==0){jm=0;}
 
-			c2ddtt[i][j]= 0.5*(M[i][j]+M[ip][j])*(c2k[ip][j]-c2k[i][j]) 
-						- 0.5*(M[i][j]+M[im][j])*(c2k[i][j]-c2k[im][j]) 
-						+ 0.5*(M[i][j]+M[i][jp])*(c2k[i][jp]-c2k[i][j]) 
+			c2ddtt[i][j]= 0.5*(M[i][j]+M[ip][j])*(c2k[ip][j]-c2k[i][j])
+						- 0.5*(M[i][j]+M[im][j])*(c2k[i][j]-c2k[im][j])
+						+ 0.5*(M[i][j]+M[i][jp])*(c2k[i][jp]-c2k[i][j])
 						- 0.5*(M[i][j]+M[i][jm])*(c2k[i][j]-c2k[i][jm]);
 			c2h2[i][j]=c2h[i][j]+c2ddtt[i][j]*delt;
 			//c2h2[i][j]=c2h[i][j]+c2ddtt*delt+4.0e-3*(2.*DRND(1.)-1.);
@@ -387,7 +383,7 @@ int main(void){
 				Si_e=(sigma[ip][j]+K)/2.0;  Si_w=(sigma[im][j]+K)/2.0;
 				Si_n=(sigma[i][jp]+K)/2.0;  Si_s=(sigma[i][jm]+K)/2.0;
 				Vh[i][j]=beta*(Si_e*V_E+Si_w*V_W+Si_n*V_N+Si_s*V_S)/(Si_e+Si_w+Si_n+Si_s)+(1.0-beta)*V;
-			
+
 			}
 		}
 		//境界条件再設定
@@ -438,7 +434,7 @@ int main(void){
 			T1[i][j]=T[i][j];
 			T2[i][j]=T[i][j];
 		}
-	}	
+	}
 	//printf("e");
 	//for(k=0;k<=9;k++){
 
@@ -457,9 +453,9 @@ int main(void){
 			if(i==ndm){ip=ndm;}  if(i==0){im=0;}
 			if(j==ndm){jp=ndm;}  if(j==0){jm=0;}
 
-			Trddtt[i][j]= 0.5*(ramuda[i][j]+ramuda[ip][j])*(Tddtt[ip][j]-Tddtt[i][j]) 
-						- 0.5*(ramuda[i][j]+ramuda[im][j])*(Tddtt[i][j]-Tddtt[im][j]) 
-						+ 0.5*(ramuda[i][j]+ramuda[i][jp])*(Tddtt[i][jp]-Tddtt[i][j]) 
+			Trddtt[i][j]= 0.5*(ramuda[i][j]+ramuda[ip][j])*(Tddtt[ip][j]-Tddtt[i][j])
+						- 0.5*(ramuda[i][j]+ramuda[im][j])*(Tddtt[i][j]-Tddtt[im][j])
+						+ 0.5*(ramuda[i][j]+ramuda[i][jp])*(Tddtt[i][jp]-Tddtt[i][j])
 						- 0.5*(ramuda[i][j]+ramuda[i][jm])*(Tddtt[i][j]-Tddtt[i][jm]);
 
 			T[i][j]=T2[i][j]+Trddtt[i][j]*delt;
@@ -506,7 +502,7 @@ int main(void){
 		// 	//printf("%e %e\n",sigma[i][32],sigsum);
 		// }
 	//printf("sigma");
-	// 
+	//
 	if((((int)(time1) % hozon)==0)) {
 		datsave_c();
 		datsave_V();
@@ -527,19 +523,19 @@ int main(void){
 
 } //main
 
-//********** [初期濃度] ************
-void ini000(){
+//********** [初期濃度場の設定] **********
+void set_init_conc(){
 
 	int k, l;
 	int ir0, ir1, ix, iy, iddd;
 	double r1, dy;
-	double ceM, ceP; 
-	double rnd0, sum; 
+	double ceM, ceP;
+	double rnd0, sum;
 	double xmin, xmax, ymin, ymax;
  	srand(time(NULL)); // 乱数初期化
 
 	//ceM=0.00001;  ceP=0.99999;
-	ceM=0.07;  ceP=0.93;
+	ceM=0.07;  ceP=0.93; //なぜ0と1でないのか
 
 	for(i=0;i<=ndm;i++){
 		for(j=0;j<=ndm;j++){
@@ -614,15 +610,25 @@ void ini000(){
 		}
 	}
 
-	//datsave();
+	//初期濃度場を出力
+	FILE		*stream;
+	int 		i, j;
+
+	stream = fopen("dc_dev/bin/init_conc.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+	for (i = 0; i < nd; i++) {
+		for (j = 0; j < nd; j++) {
+			fwrite(&c2h[i][j], sizeof(double), 1, stream);
+		}
+	}
+	fclose(stream);
 
 	sum=0.; for(i=0;i<=ndm;i++){ for(j=0;j<=ndm;j++){ sum+=c2h[i][j]; } }
 	c2a=sum/nd/nd;
 	//printf("c2a = %f  \n", c2a);
 }
 
-//************ [初期電位場] *****************************************
-void shokiha_V(){
+//********** [初期電位場の設定] **********
+void set_init_electric_potential(){
 
 	double rnd0;
 
@@ -645,7 +651,7 @@ void shokiha_V(){
 	for(i=0;i<=ndm;i++){
     	for(j=0;j<=ndm;j++){
 			if(c2h[i][j]>=ceP){c2h[i][j]=ceP;}
-            if(c2h[i][j]<=ceM){c2h[i][j]=ceM;}			
+            if(c2h[i][j]<=ceM){c2h[i][j]=ceM;}
 		}
 	}
 
@@ -658,7 +664,7 @@ double G_T_V(double temp){
 	double xT, alpha, y;
 
 		xT=temp-700.0;
-		T_left = (int)xT; 
+		T_left = (int)xT;
 		T_right =(int)xT + 1;//xの含まれる範囲の両端を表すインデックス
 		if (T_left == 1300){ T_right = 1300; }//データ点領域右端の補正
 		alpha = xT - (double)T_left;//α、範囲左側との距離
@@ -671,18 +677,18 @@ double G_T_V(double temp){
 //*********** 組織形態情報の入力 **************************
 void datin()
 {
-	FILE		*datin0;
+	FILE		*stream;
 	int 		i;
 
-	datin0 = fopen("dc_dev/data/temp10.dat", "r");
-	//fscanf(datin0, "%lf", &time1);
+	stream = fopen("dc_dev/data/temp10.dat", "r");
+	//fscanf(stream, "%lf", &time1);
 
 	for(i=0;i<vava;i++){
-			fscanf(datin0, "%lf\n", &VVa[i]);
-		}
+		fscanf(stream, "%lf\n", &VVa[i]);
+	}
 
 	//printf("hello");
-	fclose(datin0);
+	fclose(stream);
 }
 
 //*********** 組織形態情報の入力 **************************
@@ -881,7 +887,7 @@ void datin2()
 	FILE   *datin1;
 
  	double ceM, ceP;
-	double cmax, cmin; 
+	double cmax, cmin;
 	double time3=-1.0;
 
     ceM=0.0001;  ceP=0.9999;
@@ -936,7 +942,7 @@ void datin2()
 
 // 			fscanf(datin4, "%lf ", &c2h[i][j]);
 // 			//printf("%e ", W[i][j]);
-			
+
 // 		}
 // 	}
 // 	//printf("hello");
