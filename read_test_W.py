@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pgutil
 
-fp = open("dc_dev/bin/test_c.bin", "rb")
+fp = open("dc_dev/bin/test_W.bin", "rb")
 c = np.fromfile(fp, dtype=np.float64)
 cc = c.reshape(-1, 128, 128)
 pg = pgutil.Playground()
@@ -19,8 +19,7 @@ while pg.run():
     b = (0 * color[ind] + 255 * (1.0 - color[ind])) * (cc[ind] > thres) + 255 * (1 - (cc[ind] > thres))
     drawing = np.dstack((r, g, b))     # dstack:2次元配列→3次元配列
     pg.transform_blit_3d(drawing)
-    # pg.transform_blit(cc[ind,:,:])
     nn = 2000 * ind
     if ind % 1 == 0:
-        pg.take_screenshot("dc_dev/output/test_c/c_%d.png" %(nn))
+        pg.take_screenshot("dc_dev/output/test_W/W_%d.png" %(nn))
 fp.close()
