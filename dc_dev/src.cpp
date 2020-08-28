@@ -610,18 +610,6 @@ void set_init_conc(){
 		}
 	}
 
-	//初期濃度場を出力
-	FILE		*stream;
-	int 		i, j;
-
-	stream = fopen("dc_dev/bin/init_conc.bin", "ab");	//書き込む先のファイルを追記方式でオープン
-	for (i = 0; i < nd; i++) {
-		for (j = 0; j < nd; j++) {
-			fwrite(&c2h[i][j], sizeof(double), 1, stream);
-		}
-	}
-	fclose(stream);
-
 	sum=0.; for(i=0;i<=ndm;i++){ for(j=0;j<=ndm;j++){ sum+=c2h[i][j]; } }
 	c2a=sum/nd/nd;
 	//printf("c2a = %f  \n", c2a);
