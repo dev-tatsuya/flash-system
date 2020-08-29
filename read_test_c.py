@@ -14,12 +14,15 @@ print(color.shape)
 thres = 0.4
 while pg.run():
     ind = (pg.totaltick) % cc.shape[0]
+
     r = (0 * color[ind] + 255 * (1.0 - color[ind])) * (cc[ind] > thres) + 255 * (1 - (cc[ind] > thres))
     g = (0 * color[ind] + 255 * (1.0 - color[ind])) * (cc[ind] > thres) + 255 * (1 - (cc[ind] > thres))
     b = (0 * color[ind] + 255 * (1.0 - color[ind])) * (cc[ind] > thres) + 255 * (1 - (cc[ind] > thres))
     drawing = np.dstack((r, g, b))     # dstack:2次元配列→3次元配列
     pg.transform_blit_3d(drawing)
-    # pg.transform_blit(cc[ind,:,:])
+
+    # pg.transform_blit_cmap(cc[ind], 0, 1, cmap="binary")
+
     nn = 2000 * ind
     if ind % 1 == 0:
         pg.take_screenshot("dc_dev/output/test_c/c_%d.png" %(nn))
