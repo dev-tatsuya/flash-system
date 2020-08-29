@@ -11,7 +11,7 @@ datmin = cc.min()
 color = (cc - datmin) / (datmax - datmin)
 print(cc.max(), cc.min())
 print(color.shape)
-thres = 0.4
+thres = 0
 while pg.run():
     ind = (pg.totaltick) % cc.shape[0]
     r = (0 * color[ind] + 255 * (1.0 - color[ind])) * (cc[ind] > thres) + 255 * (1 - (cc[ind] > thres))
