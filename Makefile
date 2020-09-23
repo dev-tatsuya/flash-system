@@ -9,6 +9,7 @@ run_dc_dev:
 	g++ -o dc_dev/exec dc_dev/src.cpp
 	rm -f dc_dev/bin/*
 	./dc_dev/exec
+	python3 read_test_c.py
 
 clean:
 	rm -f dc_fix/exec

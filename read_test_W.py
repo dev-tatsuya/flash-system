@@ -12,6 +12,11 @@ color = (cc - datmin) / (datmax - datmin)
 print(cc.max(), cc.min())
 print(color.shape)
 thres = 0
+
+now = datetime.now().strftime('%s') #e.g.'1600835026'
+path = 'dc_dev/output/test_W/%s' % now
+os.makedirs(path, exist_ok=True)
+
 while pg.run():
     ind = (pg.totaltick) % cc.shape[0]
     r = (255 * color[ind] + 255 * (1.0 - color[ind])) * (cc[ind] > thres) + 255 * (1 - (cc[ind] > thres))
@@ -21,5 +26,5 @@ while pg.run():
     pg.transform_blit_3d(drawing)
     nn = 2000 * ind
     if ind % 1 == 0:
-        pg.take_screenshot("dc_dev/output/test_W/W_%d.png" %(nn))
+        pg.take_screenshot("%s/W_%d.png" % (path, nn))
 fp.close()

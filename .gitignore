@@ -1,7 +1,9 @@
 dc_dev/bin/*
 dc_dev/output/*
 test.dat
+test0.dat
 exec
+colorbar/
 
 .vscode/settings.json
 .idea

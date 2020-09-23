@@ -12,18 +12,17 @@ color = (cc - datmin) / (datmax - datmin)
 print(cc.max(), cc.min())
 print(color.shape)
 thres = 0
+
+now = datetime.now().strftime('%s') #e.g.'1600835026'
+path = 'dc_dev/output/test_delT/%s' % now
+os.makedirs(path, exist_ok=True)
+
 while pg.run():
     ind = (pg.totaltick) % cc.shape[0]
-
-    # r = (255 * color[ind] + 255 * (1.0 - color[ind])) * (cc[ind] > thres) + 255 * (1 - (cc[ind] > thres))
-    # g = (0 * color[ind] + 255 * (1.0 - color[ind])) * (cc[ind] > thres) + 255 * (1 - (cc[ind] > thres))
-    # b = (0 * color[ind] + 255 * (1.0 - color[ind])) * (cc[ind] > thres) + 255 * (1 - (cc[ind] > thres))
-    # drawing = np.dstack((r, g, b))     # dstack:2次元配列→3次元配列
-    # pg.transform_blit_3d(drawing)
 
     pg.transform_blit_cmap(cc[ind], 0, 9.33e+07, cmap="Purples")
 
     nn = 2000 * ind
     if ind % 1 == 0:
-        pg.take_screenshot("dc_dev/output/test_delT/delT_%d.png" %(nn))
+        pg.take_screenshot("%s/delT_%d.png" % (path, nn))
 fp.close()
