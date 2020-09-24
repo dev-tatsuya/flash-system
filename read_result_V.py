@@ -4,7 +4,7 @@ import pgutil
 from datetime import datetime
 import os
 
-fp = open("dc_dev/bin/test_delT.bin", "rb")
+fp = open("fft/bin/result_V.bin", "rb")
 c = np.fromfile(fp, dtype=np.float64)
 cc = c.reshape(-1, 128, 128)
 pg = pgutil.Playground()
@@ -16,15 +16,15 @@ print(color.shape)
 thres = 0
 
 now = datetime.now().strftime('%s') #e.g.'1600835026'
-path = 'dc_dev/output/test_delT/%s' % now
+path = 'fft/output/result_V/%s' % now
 os.makedirs(path, exist_ok=True)
 
 while pg.run():
     ind = (pg.totaltick) % cc.shape[0]
 
-    pg.transform_blit_cmap(cc[ind], datmin, datmax, cmap="Purples")
+    pg.transform_blit_cmap(cc[ind], 0, 0.3, cmap="Oranges")
 
     nn = 2000 * ind
     if ind % 1 == 0:
-        pg.take_screenshot("%s/delT_%d.png" % (path, nn))
+        pg.take_screenshot("%s/V_%d.png" % (path, nn))
 fp.close()

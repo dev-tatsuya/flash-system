@@ -20,7 +20,7 @@ os.makedirs(path, exist_ok=True)
 while pg.run():
     ind = (pg.totaltick) % cc.shape[0]
 
-    pg.transform_blit_cmap(cc[ind], 0, 1, cmap="binary")
+    pg.transform_blit_cmap(cc[ind], datmin, datmax, cmap="binary")
 
     nn = 2000 * ind
     if ind % 1 == 0:

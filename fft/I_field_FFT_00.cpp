@@ -16,11 +16,11 @@ int nd=ND, ndm=ND-1;		//計算領域の一辺の差分分割数，ND-1を定義
 int nd2=ND/2, nd2m=ND/2-1;	//(組織の分割数)／2：フ－リエ変換内で使用
 int nd4=ND/4;
 int ig=IG;
-double PI=3.141592, time1;	//π，計算カウント数
+double PI=3.141592, time1, timeMax;	//π，計算カウント数
 double RR=8.3145;			//ガス定数
 double V1, V2, Vav;
 double Vx1, Vx2;
-double Q01, Q1, Q02, Q2, Q00;
+double Q01, Q1, Q02, Q2, Q00; //電荷
 
 double ch[ND][ND];			//組織内の濃度デ－タ配列
 double Vh[ND][ND];			//組織内の電位デ－タ配列
@@ -45,7 +45,9 @@ void table();				//sinとcosのテーブル作成サブル－チン
 void fft();		  			//１次元ＦＦＴ
 void rcfft();				//２次元ＦＦＴ
 
+void datsave_c();
 void datsave_V();
+void datsave_S();
 
 //********メインプログラム************************************
 int main(void)
@@ -53,12 +55,12 @@ int main(void)
 	int loopief, ief;
 
 	double V;
-	double c_0;
-	double al;									//計算領域
-	double b1;									//差分ブロックサイズ
+	double c_0;  //濃度平均
+	double al;   //計算領域
+	double b1;   //差分ブロックサイズ
 
 	double s0qrh1[ND][ND],	s0qih1[ND][ND];			//組織の振幅配列
-	double dKh[ND][ND];
+	double dKh[ND][ND]; //伝導率(変動量)
 	double a1_qrh1[ND][ND],	a1_qih1[ND][ND];		//dummy配列
 	double a2_qrh1[ND][ND],	a2_qih1[ND][ND];		//dummy配列
 
@@ -66,9 +68,9 @@ int main(void)
 	int   p, q, m, n;									//整数
 	int   ip, im, jp, jm;							//整数
 
-	double K01, K1;
-	double K02, K2;
-	double K0, Km;
+	double K01, K1; //伝導率(c)
+	double K02, K2; //伝導率(1-c)
+	double K0, Km;  //伝導率(平均)
 
 	double nx, ny, nz, alnn;
 	double kx, ky, kz;
@@ -79,6 +81,8 @@ int main(void)
 
 	printf("loop(6)=  "); scanf(" %d",&loopief); //収束計算ループ回数
 	//loopief=10;
+	printf("timeMax= "); scanf("%lf", &timeMax);
+	time1 = 0.0;
 
 	al=1.0e-02;						//計算領域一辺の長さ(m)
 	b1=al/ND;							//差分ブロック一辺の長さ(m)
@@ -111,13 +115,17 @@ int main(void)
 	shokiha_V();	//初期電位場の設定
 	table();			//sin,cosテーブル
 
+	datsave_c();
+	datsave_V();
+	datsave_S();
+
     //******** 画像window ***********************************
 	// gwinsize(INX,INY); ginit(2); gsetorg(0,0);	//描画のwindow表示
 	// graph_c();//組織形態の描画
 	//graph_V();//電位勾配
 
     //******** スタート ***************************
-    //start: ;
+    start: ;
 
     //********* PFの平均値の算出 ******************************************************
 	sum1=0.0; for(i=0;i<=ndm;i++){ for(j=0;j<=ndm;j++){ sum1+=ch[i][j]; } }
@@ -171,52 +179,56 @@ int main(void)
 		//**** 電位勾配*導電率の差のフ－リエ変換（dKh[][]*J1[][] ---> a1_qrh1） ********************************
 		for(i=0;i<=ndm;i++){
 			for(j=0;j<=ndm;j++){
-				xr[i][j]=dKh[i][j]*J1[i][j]; xi[i][j]=0.0;
+				xr[i][j]=dKh[i][j]*J1[i][j];
+				xi[i][j]=0.0;
 			}
 		}
+
 		qs=-1.; rcfft();
 		for(i=0;i<=ndm;i++){
 			for(j=0;j<=ndm;j++){
-				a1_qrh1[i][j]=xr[i][j]; a1_qih1[i][j]=xi[i][j];
+				a1_qrh1[i][j]=xr[i][j];
+				a1_qih1[i][j]=xi[i][j];
 			}
 		}
 		//a1_qrh1[0][0]=a1_qih1[0][0]=0.;
 
-		//**** 電位勾配*導電率の差のフ－リエ変換 (dKh[][]*J2[][] ---> a2_qrh2） ********************************
+		//**** 電位勾配*導電率の差のフ－リエ変換 (dKh[][]*J2[][] ---> a2_qrh1） ********************************
 		for(i=0;i<=ndm;i++){
 			for(j=0;j<=ndm;j++){
-				xr[i][j]=dKh[i][j]*J2[i][j]; xi[i][j]=0.0;
+				xr[i][j]=dKh[i][j]*J2[i][j];
+				xi[i][j]=0.0;
 			}
 		}
 		qs=-1.; rcfft();
 		for(i=0;i<=ndm;i++){
 			for(j=0;j<=ndm;j++){
-				a2_qrh1[i][j]=xr[i][j]; a2_qih1[i][j]=xi[i][j];
+				a2_qrh1[i][j]=xr[i][j];
+				a2_qih1[i][j]=xi[i][j];
 			}
 		}
 		//a2_qrh1[0][0]=a2_qih1[0][0]=0.;
 
 		//***** 次のステップの電位場の計算 *************************************
 		for(i=0;i<=ndm;i++){
-			if(i<=nd2-1){ii=i;}  if(i>=nd2){ii=i-nd;}
+			if(i<=nd2-1){ii=i;} else{ii=i-nd;}
 			for(j=0;j<=ndm;j++){
-				if(j<=nd2-1){jj=j;}  if(j>=nd2){jj=j-nd;}
-					kx=2.0*PI/(double)nd*(double)ii;
-					ky=2.0*PI/(double)nd*(double)jj;
-					alnn=sqrt(kx*kx+ky*ky);  if(alnn==0.){alnn=1.;}
-					//xr[i][j]=( s0qrh1[i][j]	-( kx*(a1_qrh1[i][j]+a1_qih1[i][j])
-					//												  +ky*(a2_qrh1[i][j]+a2_qih1[i][j]) ) )/(K0*alnn*alnn);
-					//xi[i][j]=( s0qih1[i][j]	+( kx*(a1_qrh1[i][j]+a1_qih1[i][j])
-					//												  +ky*(a2_qrh1[i][j]+a2_qih1[i][j]) ) )/(K0*alnn*alnn);
-					xr[i][j]=( s0qrh1[i][j]-(kx*a1_qih1[i][j]+ky*a2_qih1[i][j]) )/(K0*alnn*alnn);
-					xi[i][j]=( s0qih1[i][j]+(kx*a1_qrh1[i][j]+ky*a2_qrh1[i][j]) )/(K0*alnn*alnn);
+				if(j<=nd2-1){jj=j;} else{jj=j-nd;}
+				kx=2.0*PI/(double)nd*(double)ii;
+				ky=2.0*PI/(double)nd*(double)jj;
+				alnn=sqrt(kx*kx+ky*ky);  if(alnn==0.){alnn=1.;}
+				//xr[i][j]=( s0qrh1[i][j]	-( kx*(a1_qrh1[i][j]+a1_qih1[i][j])
+				//												  +ky*(a2_qrh1[i][j]+a2_qih1[i][j]) ) )/(K0*alnn*alnn);
+				//xi[i][j]=( s0qih1[i][j]	+( kx*(a1_qrh1[i][j]+a1_qih1[i][j])
+				//												  +ky*(a2_qrh1[i][j]+a2_qih1[i][j]) ) )/(K0*alnn*alnn);
+				xr[i][j]=( s0qrh1[i][j]-(kx*a1_qih1[i][j]+ky*a2_qih1[i][j]) )/(K0*alnn*alnn);
+				xi[i][j]=( s0qih1[i][j]+(kx*a1_qrh1[i][j]+ky*a2_qrh1[i][j]) )/(K0*alnn*alnn);
 			}
 		}
 		qs=1.; rcfft();
 		for(i=0;i<=ndm;i++){
 			for(j=0;j<=ndm;j++){
 				Vh[i][j]=xr[i][j];
-
 			}
 		}
 
@@ -235,7 +247,6 @@ int main(void)
 
 		// graph_V();
 		printf("ief= %d \n", ief);
-		datsave_V();
 
 	}//iefのloop
 
@@ -261,8 +272,8 @@ int main(void)
 
 	sum1=sum2=0.0;  for(j=0;j<=nd2m;j++){ sum1+=Vh[1][j];  sum2+=Vh[nd2m-1][j]; }
 	Vx1=sum1/nd2;  Vx2=sum2/nd2;
-	printf("Vx1, Vx2, ΔVx= %f  %f  %f \n", Vx1, Vx2, Vx2-Vx1);
-	printf("V1, V2, ΔV= %f  %f  %f \n", V1, V2, V2-V1);
+	printf("Vx1, Vx2, dVx= %f  %f  %f \n", Vx1, Vx2, Vx2-Vx1);
+	printf("V1, V2, dV= %f  %f  %f \n", V1, V2, V2-V1);
 
 	Q00=Q01*(V2-V1)/(Vx2-Vx1);
 	printf("Q01, Q00= %e  %e \n", Q01, Q00);
@@ -281,9 +292,16 @@ int main(void)
 
 	//************************************************************
 	// if(keypress()){return 0;}//キー待ち状態
-	//time1=time1+1.;  if(time1<time1max){goto start;}//最大カウント数に到達したかどうかの判断
 
+	datsave_c();
+	datsave_V();
+	datsave_S();
+
+	printf("time=%f\n", time1);
+
+	time1=time1+1.;  if(time1<timeMax){goto start;}//最大カウント数に到達したかどうかの判断
 	end:;
+
 	return 0;
 }
 
@@ -338,7 +356,10 @@ void shokiha_S()
 		}
 	}
 
-	for(j=0;j<=nd2m;j++){  s0h[nd2m][j]=s0h[nd2m-1][j]=Q2;  s0h[0][j]=s0h[1][j]=Q1; }
+	for(j=0;j<=nd2m;j++){
+		s0h[nd2m][j]=s0h[nd2m-1][j]=Q2;
+		s0h[0][j]=s0h[1][j]=Q1;
+	}
 
 	for(i=0;i<=ndm;i++){
 		for(j=0;j<=ndm;j++){
@@ -351,45 +372,45 @@ void shokiha_S()
 }
 
 //*******[電位場の描画]**************************************************
-void graph_V()
-{
-	int i, j, ii, jj;
-	int col_R, col_G, col_B;
-	double col, fact1;
-	double c, x, xmax, xmin, y, ymax, ymin, rad0;
-	int ixmin=0, iymin=0, igx, igy, irad0;
-	int ixmax=INX;
-	int iymax=INY;
+// void graph_V()
+// {
+// 	int i, j, ii, jj;
+// 	int col_R, col_G, col_B;
+// 	double col, fact1;
+// 	double c, x, xmax, xmin, y, ymax, ymin, rad0;
+// 	int ixmin=0, iymin=0, igx, igy, irad0;
+// 	int ixmax=INX;
+// 	int iymax=INY;
 
-	// gcls(); //画面クリア
-	xmin=0.; xmax=1.;
-	ymin=0.; ymax=1.;
+// 	// gcls(); //画面クリア
+// 	xmin=0.; xmax=1.;
+// 	ymin=0.; ymax=1.;
 
-	//printf("time %f\n",time1);
-	rad0=1./nd/2.;
-	irad0=(ixmax-ixmin)/(xmax-xmin)*rad0+1;
+// 	//printf("time %f\n",time1);
+// 	rad0=1./nd/2.;
+// 	irad0=(ixmax-ixmin)/(xmax-xmin)*rad0+1;
 
-	for(i=0;i<=nd;i++){
-		for(j=0;j<=nd;j++){
-			x=1./nd*i+rad0;  igx=(ixmax-ixmin)/(xmax-xmin)*(x-xmin)+ixmin;
-			y=1./nd*j+rad0;  igy=(iymax-iymin)/(ymax-ymin)*(y-ymin)+iymin;
-			ii=i; jj=j;  if(i==nd){ii=0;}  if(j==nd){jj=0;}
-			col=(Vh[ii][jj]-Vh[0][1])/(Vh[nd2m][1]-Vh[0][1]);
-			//col=(V2*Vh[ii][jj]-V2)/(V1-V2);
-			if(col>=1.0){col=1.0;}  if(col<=0.0){col=0.0;}
-			if(ch[i][j]>0.5){fact1=1.0;} else{fact1=0.0;}
-			//col_R=(int)(255*col*fact1);
-			col_R=(int)(255*col);
-			col_G=(int)(255*col);
-			col_B=(int)(255*col);
-			// gcolor(col_R,col_G,col_B);
-			// grect(igx-irad0,igy-irad0,igx+irad0,igy+irad0);
-		}
-	}
+// 	for(i=0;i<=nd;i++){
+// 		for(j=0;j<=nd;j++){
+// 			x=1./nd*i+rad0;  igx=(ixmax-ixmin)/(xmax-xmin)*(x-xmin)+ixmin;
+// 			y=1./nd*j+rad0;  igy=(iymax-iymin)/(ymax-ymin)*(y-ymin)+iymin;
+// 			ii=i; jj=j;  if(i==nd){ii=0;}  if(j==nd){jj=0;}
+// 			col=(Vh[ii][jj]-Vh[0][1])/(Vh[nd2m][1]-Vh[0][1]);
+// 			//col=(V2*Vh[ii][jj]-V2)/(V1-V2);
+// 			if(col>=1.0){col=1.0;}  if(col<=0.0){col=0.0;}
+// 			if(ch[i][j]>0.5){fact1=1.0;} else{fact1=0.0;}
+// 			//col_R=(int)(255*col*fact1);
+// 			col_R=(int)(255*col);
+// 			col_G=(int)(255*col);
+// 			col_B=(int)(255*col);
+// 			// gcolor(col_R,col_G,col_B);
+// 			// grect(igx-irad0,igy-irad0,igx+irad0,igy+irad0);
+// 		}
+// 	}
 
-	// swapbuffers();
+// 	// swapbuffers();
 
-}
+// }
 
 //*******[組織の描画]**************************************************
 // void graph_c()
@@ -581,7 +602,7 @@ void datsave()
 	FILE		*stream;
 	int 		i, j;
 
-	stream = fopen("test.dat", "a");		//保存ファイル名をtest.datとしている。
+	stream = fopen("fft/data/test.dat", "a");		//保存ファイル名をtest.datとしている。
 	fprintf(stream, "%e\n", time1);		//時間の書き込み
 	for(i=0;i<=ndm;i++){
 		for(j=0;j<=ndm;j++){
@@ -642,7 +663,7 @@ void datload()
 	//datin0 = fopen("test500.dat", "r");
 	//datin0 = fopen("test600.dat", "r");
 	//datin0 = fopen("test700.dat", "r");
-	datin0 = fopen("test800.dat", "r");
+	datin0 = fopen("fft/data/test800.dat", "r");
 	////datin0 = fopen("test900.dat", "r");
 	//datin0 = fopen("test1000.dat", "r");
 	////datin0 = fopen("test1100.dat", "r");
@@ -687,22 +708,59 @@ void datload()
 
 }
 
+void datsave_c()
+{
+	FILE		*stream;		//ストリームのポインタ設定
+	int 		i, j;		//整数
+
+	stream = fopen("fft/bin/result_c.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+	//printf("time %lf, 炉温%lf, T0%lf\n", time1, T_ro, T0);						//計算カウント数の表
+
+	for (i = 0; i < nd; i++) {
+		for (j = 0; j < nd; j++) {
+			fwrite(&ch[i][j], sizeof(double), 1, stream);
+		}
+	}
+	//fprintf(stream, "\n");	//改行の書き込み
+
+	fclose(stream);					//ファイルをクローズ
+}
+
 void datsave_V()
 {
 	FILE		*stream;		//ストリームのポインタ設定
-	double V00[ND][ND];
 	int i, j;
+	double V00[ND][ND];
 
 	stream = fopen("fft/bin/result_V.bin", "ab");	//書き込む先のファイルを追記方式でオープン
 	//printf("time %f\n", time1);						//計算カウント数の表示
 
-		for (i = 0; i < nd; i++) {
-			for (j = 0; j < nd; j++) {
-				V00[i][j]=Vh[i][j]*V2+Vav;
-				fwrite(&V00[i][j], sizeof(double), 1, stream);
-			}
+	for (i = 0; i < nd; i++) {
+		for (j = 0; j < nd; j++) {
+			V00[i][j] = Vh[i][j]*V2+Vav;
+			fwrite(&V00[i][j], sizeof(double), 1, stream);
 		}
-		//fprintf(stream, "\n");	//改行の書き込み
+	}
+	//fprintf(stream, "\n");	//改行の書き込み
+
+	fclose(stream);					//ファイルをクローズ
+}
+
+void datsave_S()
+{
+	FILE		*stream;		//ストリームのポインタ設定
+	int i, j;
+	double V00[ND][ND];
+
+	stream = fopen("fft/bin/result_S.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+	//printf("time %f\n", time1);						//計算カウント数の表示
+
+	for (i = 0; i < nd; i++) {
+		for (j = 0; j < nd; j++) {
+			fwrite(&s0h[i][j], sizeof(double), 1, stream);
+		}
+	}
+	//fprintf(stream, "\n");	//改行の書き込み
 
 	fclose(stream);					//ファイルをクローズ
 }

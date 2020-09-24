@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pgutil
+from datetime import datetime
+import os
 
 fp = open("dc_dev/bin/test_yVa.bin", "rb")
 c = np.fromfile(fp, dtype=np.float64)
@@ -20,7 +22,7 @@ os.makedirs(path, exist_ok=True)
 while pg.run():
     ind = (pg.totaltick) % cc.shape[0]
 
-    pg.transform_blit_cmap(cc[ind], 0.015000000109873806, 0.01500000102695368, cmap="gray")
+    pg.transform_blit_cmap(cc[ind], datmin, datmax, cmap="gray")
 
     nn = 2000 * ind
     if ind % 1 == 0:

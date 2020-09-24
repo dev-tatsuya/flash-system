@@ -1,5 +1,7 @@
 dc_dev/bin/*
 dc_dev/output/*
+fft/bin/*
+fft/output/*
 test.dat
 test0.dat
 exec

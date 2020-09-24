@@ -162,7 +162,8 @@ int main(void){
 	// max_times=500000.0;
 	// max_times=80000.;
 
-	L12=1.85e4/RR/T0;             //–³ŸŒ³‰»
+	double L00 = 23000.0;//1.85e4;
+	L12=L00/RR/T0;             //–³ŸŒ³‰»
 	kapa_c2=10.0e-15/b1/b1/RR/T0; //–³ŸŒ³‰»
 
 	//D0=0.35e-6/b1/b1;
@@ -534,8 +535,8 @@ void set_init_conc(){
 	double xmin, xmax, ymin, ymax;
  	srand(time(NULL)); // —”‰Šú‰»
 
-	//ceM=0.00001;  ceP=0.99999;
-	ceM=0.07;  ceP=0.93; //‚È‚º0‚Æ1‚Å‚È‚¢‚Ì‚©
+	ceM=0.00001;  ceP=0.99999;
+	// ceM=0.07;  ceP=0.93; //‚È‚º0‚Æ1‚Å‚È‚¢‚Ì‚©
 
 	for(i=0;i<=ndm;i++){
 		for(j=0;j<=ndm;j++){
