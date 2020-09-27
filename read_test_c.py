@@ -4,7 +4,10 @@ import pgutil
 from datetime import datetime
 import os
 
-fp = open("dc_dev/bin/test_c.bin", "rb")
+param = "dc_fix"
+
+filename = "%s/bin/test_c.bin" % param
+fp = open(filename, "rb")
 c = np.fromfile(fp, dtype=np.float64)
 cc = c.reshape(-1, 128, 128)
 pg = pgutil.Playground()
@@ -15,7 +18,7 @@ print(cc.max(), cc.min())
 print(color.shape)
 thres = 0.4
 now = datetime.now().strftime('%s') #e.g.'1600835026'
-path = 'dc_dev/output/test_c/%s' % now
+path = '%s/output/test_c/%s' % (param, now)
 os.makedirs(path, exist_ok=True)
 while pg.run():
     ind = (pg.totaltick) % cc.shape[0]

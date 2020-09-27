@@ -18,8 +18,8 @@ int nd4=ND/4;
 int ig=IG;
 double PI=3.141592, time1, timeMax;	//π，計算カウント数
 double RR=8.3145;			//ガス定数
-double V1, V2, Vav;
-double Vx1, Vx2;
+double V1, V2, Vav; //電位[V]
+double Vx1, Vx2;    //電位[V]
 double Q01, Q1, Q02, Q2, Q00; //電荷
 
 double ch[ND][ND];			//組織内の濃度デ－タ配列
@@ -54,18 +54,17 @@ int main(void)
 {
 	int loopief, ief;
 
-	double V;
 	double c_0;  //濃度平均
 	double al;   //計算領域
 	double b1;   //差分ブロックサイズ
 
 	double s0qrh1[ND][ND],	s0qih1[ND][ND];			//組織の振幅配列
-	double dKh[ND][ND]; //伝導率(変動量)
+	double dKh[ND][ND];                             //伝導率(変動量)
 	double a1_qrh1[ND][ND],	a1_qih1[ND][ND];		//dummy配列
 	double a2_qrh1[ND][ND],	a2_qih1[ND][ND];		//dummy配列
 
 	int   i, j, k, l, ii, jj, kk, iii, jjj;			//整数
-	int   p, q, m, n;									//整数
+	int   p, q, m, n;								//整数
 	int   ip, im, jp, jm;							//整数
 
 	double K01, K1; //伝導率(c)

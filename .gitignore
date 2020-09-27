@@ -1,3 +1,5 @@
+dc_fix/bin/*
+dc_fix/output/*
 dc_dev/bin/*
 dc_dev/output/*
 fft/bin/*
@@ -5,6 +7,7 @@ fft/output/*
 test.dat
 test0.dat
 exec
+exec_fft
 colorbar/
 
 .vscode/settings.json

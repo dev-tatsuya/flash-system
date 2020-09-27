@@ -3,12 +3,23 @@ compile:
 
 run_dc_fix:
 	g++ -o dc_fix/exec dc_fix/src.cpp
+	rm -f dc_fix/bin/*
 	./dc_fix/exec
+
+run_fix_fft:
+	g++ -o dc_fix/exec_fft dc_fix/src_fft.cpp
+	rm -f dc_fix/bin/*
+	./dc_fix/exec_fft
 
 run_dc_dev:
 	g++ -o dc_dev/exec dc_dev/src.cpp
 	rm -f dc_dev/bin/*
 	./dc_dev/exec
+
+run_dev_fft:
+	g++ -o dc_dev/exec_fft dc_dev/src_fft.cpp
+	rm -f dc_dev/bin/*
+	./dc_dev/exec_fft
 
 clean:
 	rm -f dc_fix/exec
