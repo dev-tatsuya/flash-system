@@ -6,6 +6,9 @@
 #include <time.h>
 #include <math.h>
 #include <iostream>
+#include <chrono>
+
+using namespace std::chrono;
 
 #define DRND(x) ((double)(x)/RAND_MAX*rand())
 #define ND 128 //•ªŠ„”
@@ -83,7 +86,8 @@ int main(void){
 
 	//*** ŒJ‚è•Ô‚µŒvZƒXƒ^|ƒg *******************************************
 
-	printf("1e^7 times start\n");
+	printf("potential calc start\n");
+	auto start = system_clock::now();
 
 	for(time1=0.;time1<=time1max;time1+=1.){
 
@@ -113,7 +117,10 @@ int main(void){
 
 	}//time1
 
-	printf("1e^7 times end\n");
+	printf("potential calc end\n");
+	auto end = system_clock::now();
+	auto msec = duration_cast<milliseconds>(end - start).count();
+	printf("duration = %f sec.\n", msec/1000.0);
 
 	//***********************************************
 
