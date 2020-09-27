@@ -42,6 +42,24 @@ void datsave_T();
 void datsave_delT();
 void datsave_yVa();
 
+int ig = 7;
+int nd2=ND/2, nd2m=ND/2-1;	//(組織の分割数)／2：フ－リエ変換内で使用
+double Q01, Q1, Q02, Q2, Q00; //電荷
+double s0h[ND][ND];			//電荷場（発生と消滅）
+double qs;							//フ－リエ変換(qs:-1)と逆フ－リエ変換(qs:1)の区別
+double xi[ND][ND], xr[ND][ND], xif[ND], xrf[ND];		//フ－リエ変換の実部と虚部に使用する配列
+double s[ND],c[ND];			//sinとcosのテーブル
+int ik[ND];							//ビット反転配列
+double Vh2[ND][ND];			//組織内の電位デ－タ補助配列
+double J1[ND][ND], J2[ND][ND];	//流束
+double Vx1, Vx2;    //電位[V]
+double Vav;
+
+void shokiha_S();				//初期電荷場設定サブル－チン
+void table();				//sinとcosのテーブル作成サブル－チン
+void fft();		  			//１次元ＦＦＴ
+void rcfft();				//２次元ＦＦＴ
+
 int main(void){
 	printf("main start!\n");
 
@@ -56,8 +74,21 @@ int main(void){
 	double Vhdx[ND][ND], Vhdy[ND][ND];
 	double Cp, den;
 
+	int loopief, ief;
+	double c_0;
+	double K0, Km;  //伝導率(平均)
+	double s0qrh1[ND][ND],	s0qih1[ND][ND];			//組織の振幅配列
+	double dKh[ND][ND];                             //伝導率(変動量)
+	double a1_qrh1[ND][ND],	a1_qih1[ND][ND];		//dummy配列
+	double a2_qrh1[ND][ND],	a2_qih1[ND][ND];		//dummy配列
+	int ii, jj;
+	double kx, ky, alnn;
+	double w0 = 0.4;
+
 	printf("timestep = ");
 	scanf("%lf",&timestep);
+
+	printf("loop(6)=  "); scanf(" %d",&loopief); //収束計算ループ回数
 
 	K01=1.0;      //[S/m]=[1/(Ωm)]  ZrO2表面
 	K02=1.0e-18;  //[S/m]=[1/(Ωm)]  真空の値を適当に設定
@@ -79,43 +110,137 @@ int main(void){
 	den=6.05e3;
 	Cp=0.66e3*den;
 
+	//TODO どう設定したらいいのか
+	Q01=3.639774e-01;//1.43e+07;		//換算値(No.800組織)
+	Q1=-Q01/(V2*K02/b1/b1);
+	Q2=Q01/(V2*K02/b1/b1);
+	Vav = 0.5*(V1+V2);
+
 	//****** 場の読み込み ********************
 	datin();
 	datin2();
 	shokiha_V();	//初期電位場の設定
+	shokiha_S();
+	table();
+
+	datsave_c();
+	datsave_V();
 
 	//*** 繰り返し計算スタ－ト *******************************************
 
 	printf("potential calc start\n");
 	auto start = system_clock::now();
 
-	for(time1=0.;time1<=time1max;time1+=1.){
+	sum1=0.0; for(i=0;i<=ndm;i++){ for(j=0;j<=ndm;j++){ sum1+=ch[i][j]; } }
+    c_0=sum1/nd/nd;
 
-		for(i=2;i<=ndm-2;i++){//左端と右端を省く
+	K0=K1*c_0+K2*(1.0-c_0);
+
+	for(i=0;i<=ndm;i++){
+		for(j=0;j<=ndm;j++){
+			dKh[i][j]=(K1-K2)*(ch[i][j]-c_0);
+		}
+	}
+
+	for(i=0;i<=ndm;i++){
+		for(j=0;j<=ndm;j++){
+			xr[i][j]=s0h[i][j];  xi[i][j]=0.0;
+		}
+	}
+	qs=-1.; rcfft();
+	for(i=0;i<=ndm;i++){
+		for(j=0;j<=ndm;j++){
+			s0qrh1[i][j]=xr[i][j];  s0qih1[i][j]=xi[i][j];
+		}
+	}
+
+	//***** 収束計算 *******************************************************************************************
+	for(ief=0;ief<=loopief;ief++){
+
+		for(i=0;i<=ndm;i++){
+			for(j=0;j<=ndm;j++){
+				Vh2[i][j]=Vh[i][j];//補助配列にコピー
+			}
+		}
+
+        //*** 電位勾配場の計算(符号に注意) **********
+		for(i=0;i<=ndm;i++){
 			for(j=0;j<=ndm;j++){
 				ip=i+1; im=i-1; jp=j+1; jm=j-1;
-				if(i==ndm){ip=ndm-1;} 	if(i==0){im=1;}
-				if(j==ndm){jp=0;}       if(j==0){jm=ndm;}
+				if(i==ndm){ip=0;} 	if(i==0){im=ndm;}
+				if(j==ndm){jp=0;}   if(j==0){jm=ndm;}
 
-				V=Vh[i][j]; V_E=Vh[ip][j];  V_W=Vh[im][j];  V_N=Vh[i][jp];  V_S=Vh[i][jm];
+				J1[i][j]=0.5*(Vh[ip][j]-Vh[im][j]);
+				J2[i][j]=0.5*(Vh[i][jp]-Vh[i][jm]);
+			}
+		}
 
-				K=Kh[i][j];
-				K_e=(Kh[ip][j]+K)/2.0;  K_w=(Kh[im][j]+K)/2.0;
-				K_n=(Kh[i][jp]+K)/2.0;  K_s=(Kh[i][jm]+K)/2.0;
+		//**** 電位勾配*導電率の差のフ－リエ変換（dKh[][]*J1[][] ---> a1_qrh1） ********************************
+		for(i=0;i<=ndm;i++){
+			for(j=0;j<=ndm;j++){
+				xr[i][j]=dKh[i][j]*J1[i][j];
+				xi[i][j]=0.0;
+			}
+		}
 
-				Vh[i][j]=beta*(K_e*V_E+K_w*V_W+K_n*V_N+K_s*V_S)/(K_e+K_w+K_n+K_s)+(1.0-beta)*V;
+		qs=-1.; rcfft();
+		for(i=0;i<=ndm;i++){
+			for(j=0;j<=ndm;j++){
+				a1_qrh1[i][j]=xr[i][j];
+				a1_qih1[i][j]=xi[i][j];
+			}
+		}
+		//a1_qrh1[0][0]=a1_qih1[0][0]=0.;
+
+		//**** 電位勾配*導電率の差のフ－リエ変換 (dKh[][]*J2[][] ---> a2_qrh1） ********************************
+		for(i=0;i<=ndm;i++){
+			for(j=0;j<=ndm;j++){
+				xr[i][j]=dKh[i][j]*J2[i][j];
+				xi[i][j]=0.0;
+			}
+		}
+		qs=-1.; rcfft();
+		for(i=0;i<=ndm;i++){
+			for(j=0;j<=ndm;j++){
+				a2_qrh1[i][j]=xr[i][j];
+				a2_qih1[i][j]=xi[i][j];
+			}
+		}
+		//a2_qrh1[0][0]=a2_qih1[0][0]=0.;
+
+		//***** 次のステップの電位場の計算 *************************************
+		for(i=0;i<=ndm;i++){
+			if(i<=nd2-1){ii=i;} else{ii=i-nd;}
+			for(j=0;j<=ndm;j++){
+				if(j<=nd2-1){jj=j;} else{jj=j-nd;}
+				kx=2.0*PI/(double)nd*(double)ii;
+				ky=2.0*PI/(double)nd*(double)jj;
+				alnn=sqrt(kx*kx+ky*ky);  if(alnn==0.){alnn=1.;}
+				//xr[i][j]=( s0qrh1[i][j]	-( kx*(a1_qrh1[i][j]+a1_qih1[i][j])
+				//												  +ky*(a2_qrh1[i][j]+a2_qih1[i][j]) ) )/(K0*alnn*alnn);
+				//xi[i][j]=( s0qih1[i][j]	+( kx*(a1_qrh1[i][j]+a1_qih1[i][j])
+				//												  +ky*(a2_qrh1[i][j]+a2_qih1[i][j]) ) )/(K0*alnn*alnn);
+				xr[i][j]=( s0qrh1[i][j]-(kx*a1_qih1[i][j]+ky*a2_qih1[i][j]) )/(K0*alnn*alnn);
+				xi[i][j]=( s0qih1[i][j]+(kx*a1_qrh1[i][j]+ky*a2_qrh1[i][j]) )/(K0*alnn*alnn);
+			}
+		}
+		qs=1.; rcfft();
+		for(i=0;i<=ndm;i++){
+			for(j=0;j<=ndm;j++){
+				Vh[i][j]=xr[i][j];
+			}
+		}
+
+		for(i=0;i<=ndm;i++){
+			for(j=0;j<=ndm;j++){
+				Vh[i][j]=w0*Vh[i][j]+(1.0-w0)*Vh2[i][j];//重み付き平均
 			}
 		}
 
 		for(j=0;j<=ndm;j++){ Vh[ndm][j]=Vh[ndm-1][j]=V1;  Vh[0][j]=Vh[1][j]=V2; }
 
-		sum2=0.0;
-		for(i=0;i<=ndm;i++){for(j=0;j<=ndm;j++){sum2+=Vh[i][j];}}
-
-		if(fabs(sum1-sum2)<=1.0e-8){break;}
-		else{sum1=sum2;}
-
-	}//time1
+		// printf("ief= %d \n", ief);s
+	}
 
 	printf("potential calc end\n");
 	auto end = system_clock::now();
@@ -247,6 +372,33 @@ void shokiha_V(){
 	for(j=0;j<=ndm;j++){
 		Vh[ndm][j]=Vh[ndm-1][j]=V1;
 		Vh[0][j]=Vh[1][j]=V2;
+	}
+}
+
+//************[初期電荷場]*************************
+void shokiha_S()
+{
+	int i, j;
+	int ii, jj;
+	srand(time(NULL)); // 乱数初期化
+
+	for(i=0;i<=ndm;i++){
+		for(j=0;j<=ndm;j++){
+			s0h[i][j]=0.0;
+		}
+	}
+
+	for(j=0;j<=nd2m;j++){
+		s0h[ndm-1][j]=s0h[ndm][j]=Q2;
+		s0h[0][j]=s0h[1][j]=Q1;
+	}
+
+	for(i=0;i<=ndm;i++){
+		for(j=0;j<=ndm;j++){
+			if(i<nd2){ii=i;} else{ii=ndm-i;}
+			if(j<nd2){jj=j;} else{jj=ndm-j;}
+			s0h[i][j]=s0h[ii][jj];
+		}
 	}
 }
 
@@ -393,4 +545,78 @@ void datsave_yVa()
 		//fprintf(stream, "\n");	//改行の書き込み
 
 	fclose(stream);					//ファイルをクローズ
+}
+
+//************ ２次元高速フーリエ変換 ***********************************
+void rcfft()
+{
+	int i, ic, ir, j;
+
+	for(ir=0;ir<=ndm;ir++){
+		for(ic=0;ic<=ndm;ic++){
+			xrf[ic]=xr[ir][ic];	xif[ic]=xi[ir][ic];
+		}
+	fft();
+		for(ic=0;ic<=ndm;ic++){
+			xr[ir][ic]=xrf[ik[ic]];	xi[ir][ic]=xif[ik[ic]];
+		}
+	}
+	for(ic=0;ic<=ndm;ic++){
+		for(ir=0;ir<=ndm;ir++){
+			xrf[ir]=xr[ir][ic];	xif[ir]=xi[ir][ic];
+		}
+	fft();
+		for(ir=0;ir<=ndm;ir++){
+			xr[ir][ic]=xrf[ik[ir]];	xi[ir][ic]=xif[ik[ir]];
+		}
+	}
+	if(qs>0.){return;}
+	for(i=0;i<=ndm;i++){
+		for(j=0;j<=ndm;j++){
+			xr[i][j]=xr[i][j]/nd/nd;	xi[i][j]=xi[i][j]/nd/nd;
+		}
+	}
+
+}
+
+//********** １次元高速フーリエ変換 **************************************
+void fft()
+{
+	int ix, ka, kb, l2, lf, mf, n2, nf;
+	double tj, tr;
+
+	l2=1;
+	for(lf=1;lf<=ig;lf++){
+		n2=nd2/l2;
+		for(mf=1;mf<=l2;mf++){
+			for(nf=0;nf<=n2-1;nf++){
+				ix=nf*l2;
+				ka=nf+2*n2*(mf-1);
+				kb=ka+n2;
+				tr=xrf[ka]-xrf[kb];  					tj=xif[ka]-xif[kb];
+				xrf[ka]=xrf[ka]+xrf[kb]; 			xif[ka]=xif[ka]+xif[kb];
+				xrf[kb]=tr*c[ix]-tj*qs*s[ix];	xif[kb]=tj*c[ix]+tr*qs*s[ix];
+			}
+		}
+		l2=l2*2;
+	}
+
+}
+
+//******* Sin, Cos のテーブルおよびビット反転テーブルの設定 ***************
+void table()
+{
+	int it, it1, it2, mc, mn;
+	double q;
+
+	q=2.0*PI/nd;
+	for(it=0;it<=nd2-1;it++){ c[it]=cos(q*it); s[it]=sin(q*it); }//Sin, Cos のテーブル
+
+	ik[0]=0; mn=nd2; mc=1;
+	for(it1=1;it1<=ig;it1++){
+		for(it2=0;it2<=mc-1;it2++){
+			ik[it2+mc]=ik[it2]+mn;				//ビット反転テーブル
+		}
+		mn=mn/2; mc=2*mc;
+	}
 }
