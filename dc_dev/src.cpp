@@ -162,7 +162,7 @@ int main(void){
 	// max_times=500000.0;
 	// max_times=80000.;
 
-	double L00 = 23000.0;//1.85e4;
+	double L00 = 1.85e4;
 	L12=L00/RR/T0;             //–³ŽŸŒ³‰»
 	kapa_c2=10.0e-15/b1/b1/RR/T0; //–³ŽŸŒ³‰»
 
