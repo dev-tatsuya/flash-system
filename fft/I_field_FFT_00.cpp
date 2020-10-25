@@ -736,8 +736,7 @@ void datsave_V()
 
 	for (i = 0; i < nd; i++) {
 		for (j = 0; j < nd; j++) {
-			V00[i][j] = Vh[i][j]*V2+Vav;
-			fwrite(&V00[i][j], sizeof(double), 1, stream);
+			fwrite(&Vh[i][j], sizeof(double), 1, stream);
 		}
 	}
 	//fprintf(stream, "\n");	//改行の書き込み
@@ -749,7 +748,6 @@ void datsave_S()
 {
 	FILE		*stream;		//ストリームのポインタ設定
 	int i, j;
-	double V00[ND][ND];
 
 	stream = fopen("fft/bin/result_S.bin", "ab");	//書き込む先のファイルを追記方式でオープン
 	//printf("time %f\n", time1);						//計算カウント数の表示

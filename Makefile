@@ -40,6 +40,6 @@ run_fft:
 	g++ -o fft/exec fft/I_field_FFT_00.cpp
 	rm -f fft/bin/*
 	./fft/exec
-	python3 read_result_c.py
-	python3 read_result_V.py
-	python3 read_result_S.py
+	python3 read_fft_c.py
+	python3 read_fft_V.py
+	python3 read_fft_S.py
