@@ -118,7 +118,7 @@ int main(void){
 	double Cp[ND][ND]; //密度×熱容量
 	double n_el[ND][ND]; //単位体積あたりの電子数
 	double n_ion[ND][ND]; //単位体積あたりの酸素イオン濃度
-	double T1[ND][ND], T2[ND][ND]; //違いは？
+	double T1[ND][ND];
 	double ZZ; //YSZ分子量？にしては少し高め
 
 	double Tddtt[ND][ND], Trddtt[ND][ND];
@@ -439,7 +439,6 @@ int main(void){
 			delT[i][j]=Q[i][j]/Cp[i][j];
 			T[i][j]=delT[i][j]+T1[i][j];
 			T1[i][j]=T[i][j];
-			T2[i][j]=T[i][j];
 		}
 	}
 	//for(k=0;k<=9;k++){
