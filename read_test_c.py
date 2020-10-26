@@ -15,7 +15,7 @@ datmin = cc.min()
 color = (cc - datmin) / (datmax - datmin)
 print(cc.max(), cc.min())
 print(color.shape)
-thres = 0.4
+thres = 0.0
 now = datetime.now().strftime('%s') #e.g.'1600835026'
 path = '%s/output/test_c/%s' % (param, now)
 os.makedirs(path, exist_ok=True)
@@ -23,6 +23,10 @@ while pg.run():
     ind = (pg.totaltick) % cc.shape[0]
 
     # pg.transform_blit_cmap(cc[ind], datmin, datmax, cmap="binary")
+
+    # plt.imshow(cc[ind], vmin=datmin, vmax=datmax)
+    # plt.title("%s/c_%d.png" % (path, 100*ind))
+    # plt.show()
 
     #    Max              Min                                             Background
     r = (0 * color[ind] + 255 * (1.0 - color[ind])) * (cc[ind] > thres) + 255 * (1 - (cc[ind] > thres))
