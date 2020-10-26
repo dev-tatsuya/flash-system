@@ -490,6 +490,8 @@ int main(void){
 			M_ion[i][j]=M1*exp(-1.0*FF/RR/T[i][j]/T0);
 			n_ion[i][j]=cVa1*NA*den[i][j]/ZZ*b1*b1*b1;
 			sigma[i][j]=(n_el[i][j]*M_el[i][j] + M_ion[i][j]*n_ion[i][j])*c2h[i][j] + sigma_0*(1.0-c2h[i][j]);
+
+			if(sigma[i][j]<sigma_0) {sigma[i][j]=sigma_0;}
 		}
 	}
 	//printf("sigma");
@@ -653,13 +655,16 @@ void set_init_electric_potential(){
 //********** [なにしてる？] **********
 double G_T_V(double temp){
 
+	if(temp < 700.){temp = 700.;}
+	if(temp > 2000.){temp = 2000.;}
+
 	int T_left, T_right;
 	double xT, alpha, y;
 
 	xT=temp-700.0;
 	T_left = (int)xT;
 	T_right =(int)xT + 1;//xの含まれる範囲の両端を表すインデックス
-	if (T_left == 1300){ T_right = 1300; }//データ点領域右端の補正
+	if (T_left >= 1300){ T_right = 1300; }//データ点領域右端の補正
 	alpha = xT - (double)T_left;//α、範囲左側との距離
 	y = VVa[T_left] * (1.0 - alpha) + VVa[T_right] * alpha;//yの補間
 	//printf("%lf %d %d %lf %.10e %.10e %.10e\n",xT, T_left, T_right, alpha, VVa[T_left], VVa[T_right], y);
