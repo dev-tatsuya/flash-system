@@ -407,7 +407,7 @@ int main(void){
 				sumv2+=Vh[i][j];
 			}
 		}
-		//printf("%lf ",fabs(sumv1-sumv2));
+		// printf("%lf ",fabs(sumv1-sumv2));
 		if(fabs(sumv1-sumv2)<=5.0e-5){break;}
 		else {sumv1=sumv2;}
 	}
@@ -427,7 +427,7 @@ int main(void){
 	//”MŠgŽU[viii]
 	for(i=0;i<=ndm;i++){
 		for(j=0;j<=ndm;j++){
-			den[i][j]=6.05e3*c2h[i][j]+0.232*(1.0-c2h[i][j]);
+			den[i][j] = 6.05e3*c2h[i][j]+0.232*(1.0-c2h[i][j]);
 			Cp[i][j]=0.66e3*den[i][j]*b1*b1*b1/KB*c2h[i][j]+1227.0*den[i][j]*b1*b1*b1/KB*(1.0-c2h[i][j]); //[J/kgK]~[kg/m3]=[J/Km3]¨–³ŽŸŒ³‰»
 			ramuda[i][j]=3.0*b1/Dm/KB/Cp[i][j]*c2h[i][j] + 0.0891*b1/Dm/KB/Cp[i][j]*(1.0-c2h[i][j]);          //[Q/mK] ”M“`“±—¦¨–³ŽŸŒ³‰»
 			//printf("%d %d %e %e\n",i,j,Cp[i][j], ramuda[i][j]);
@@ -443,15 +443,6 @@ int main(void){
 			T1[i][j]=T[i][j];
 		}
 	}
-	//for(k=0;k<=9;k++){
-	for(i=0;i<=ndm;i++){
-		for(j=0;j<=ndm;j++){
-			ip=i+1;  im=i-1;   jp=j+1;  jm=j-1;
-			if(i==ndm) {ip=ndm;}  if(i==0) {im=0;}
-			if(j==ndm) {jp=ndm;}  if(j==0) {jm=0;}
-			Tddtt[i][j]=T[ip][j]+T[im][j]+T[i][jp]+T[i][jm]-4.0*T[i][j];    //–³ŽŸŒ³
-		}
-	}
 
 	for(i=0;i<=ndm;i++){
 		for(j=0;j<=ndm;j++){
@@ -459,14 +450,18 @@ int main(void){
 			if(i==ndm){ip=ndm;}  if(i==0){im=0;}
 			if(j==ndm){jp=ndm;}  if(j==0){jm=0;}
 
-			Trddtt[i][j]= 0.5*(ramuda[i][j]+ramuda[ip][j])*(Tddtt[ip][j]-Tddtt[i][j])
-						- 0.5*(ramuda[i][j]+ramuda[im][j])*(Tddtt[i][j]-Tddtt[im][j])
-						+ 0.5*(ramuda[i][j]+ramuda[i][jp])*(Tddtt[i][jp]-Tddtt[i][j])
-						- 0.5*(ramuda[i][j]+ramuda[i][jm])*(Tddtt[i][j]-Tddtt[i][jm]);
+			Trddtt[i][j]= 0.5*(ramuda[i][j]+ramuda[ip][j])*(T[ip][j]-T[i][j])
+						- 0.5*(ramuda[i][j]+ramuda[im][j])*(T[i][j]-T[im][j])
+						+ 0.5*(ramuda[i][j]+ramuda[i][jp])*(T[i][jp]-T[i][j])
+						- 0.5*(ramuda[i][j]+ramuda[i][jm])*(T[i][j]-T[i][jm]);
+		}
+	}
 
-			T[i][j]=T2[i][j]+Trddtt[i][j]*delt;
-			T2[i][j]=T[i][j];
-			if(T[i][j]>3.0){T[i][j]=3.0;}
+	for(i=0;i<=ndm;i++){
+		for(j=0;j<=ndm;j++){
+			T[i][j]=T[i][j]+Trddtt[i][j]*delt;
+			if(T[i][j]*T0>2000.0){T[i][j]=2000.0/T0;}
+			if(T[i][j]*T0<700.0){T[i][j]=700.0/T0;}
 		}
 	}
 	//}//k
