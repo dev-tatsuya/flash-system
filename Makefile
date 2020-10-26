@@ -17,7 +17,7 @@ run_fix_fft_square:
 	./dc_fix/exec_fft_square
 
 run_dc_dev:
-	g++ -o dc_dev/exec dc_dev/src.cpp
+	g++ -O2 -o dc_dev/exec dc_dev/src.cpp
 	rm -f dc_dev/bin/*
 	./dc_dev/exec
 
