@@ -73,6 +73,7 @@ void datsave_yVa();
 void datsave_si();
 void datsave_D();
 void datsave_I();
+void datsave_ramuda();
 
 void datin();
 void datin2();
@@ -516,6 +517,7 @@ int main(void){
 		datsave_si();
 		datsave_D();
 		datsave_I();
+		datsave_ramuda();
 	}
 
 	time1=time1+1.0;
@@ -869,6 +871,21 @@ void datsave_I()
 	fclose(stream);					//ファイルをクローズ
 }
 
+void datsave_ramuda()
+{
+	FILE		*stream;		//ストリームのポインタ設定
+
+	stream = fopen("dc_dev/bin/test_ramuda.bin", "ab");	//書き込む先のファイルを追記方式でオープン
+
+		for (i = 0; i < nd; i++) {
+			for (j = 0; j < nd; j++) {
+				fwrite(&ramuda[i][j], sizeof(double), 1, stream);
+			}
+		}
+		//fprintf(stream, "\n");	//改行の書き込み
+
+	fclose(stream);					//ファイルをクローズ
+}
 
 //*********** 組織形態情報の入力 **************************
 void datin2()
