@@ -12,6 +12,7 @@ using namespace std;
 
 #define DRND(x) ((double)(x)/RAND_MAX*rand())
 #define ND 128 //ï™äÑêî
+#define NDX2 ND*2
 #define INXY 400
 #define PI 3.1415956535
 #define RR 8.3144598
@@ -30,13 +31,13 @@ double E[ND][ND], W[ND][ND];
 double delT[ND][ND], T[ND][ND];
 double cVa[ND][ND];
 double VVa[VAVA];
-int ndx2 = ND*2;
-double s0h[ND*2][ND*2], VH[ND*2][ND*2];
+int ndx2 = NDX2;
+double s0h[NDX2][NDX2], VH[NDX2][NDX2];
 int ndx2m = ndx2 - 1;
 double Q01, Q1, Q2;
-double xr[ND*2][ND*2], xi[ND*2][ND*2], xrf[ND*2], xif[ND*2];
-double s[ND*2], c[ND*2];
-int ik[ND*2];
+double xr[NDX2][NDX2], xi[NDX2][NDX2], xrf[NDX2], xif[NDX2];
+double s[NDX2], c[NDX2];
+int ik[NDX2];
 double qs;
 int ig = 8;
 
