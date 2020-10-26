@@ -428,9 +428,8 @@ int main(void){
 	for(i=0;i<=ndm;i++){
 		for(j=0;j<=ndm;j++){
 			den[i][j] = 6.05e3*c2h[i][j]+0.232*(1.0-c2h[i][j]);
-			Cp[i][j]=0.66e3*den[i][j]*b1*b1*b1/KB*c2h[i][j]+1227.0*den[i][j]*b1*b1*b1/KB*(1.0-c2h[i][j]); //[J/kgK]~[kg/m3]=[J/Km3]¨–³ŽŸŒ³‰»
-			ramuda[i][j]=3.0*b1/Dm/KB/Cp[i][j]*c2h[i][j] + 0.0891*b1/Dm/KB/Cp[i][j]*(1.0-c2h[i][j]);          //[Q/mK] ”M“`“±—¦¨–³ŽŸŒ³‰»
-			//printf("%d %d %e %e\n",i,j,Cp[i][j], ramuda[i][j]);
+			Cp[i][j] = (6.05e3*0.66e3*c2h[i][j]+0.232*1227.0*(1.0-c2h[i][j]))*b1*b1*b1/KB;
+			ramuda[i][j] = (3.0/(6.05e3*0.66e3)*c2h[i][j]+0.0891/(0.232*1227.0)*(1.0-c2h[i][j]))*b1/Dm/KB/(b1*b1*b1/KB);
 		}
 	}
 
