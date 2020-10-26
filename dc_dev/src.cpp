@@ -322,7 +322,8 @@ int main(void){
 			if(i==ndm){ip=ndm;}  if(i==0){im=0;}
 			if(j==ndm){jp=ndm;}  if(j==0) {jm=0;}
 
-			c2=c2h[i][j];  c1=1.-c2; if(c1<=0.){c1=1.0e-06;}
+			// c2=c2h[i][j];  c1=1.-c2; if(c1<=0.){c1=1.0e-06;} //ê≥ë•ónëÃ
+			c2=c2h[i][j];  c1=1.-c2; if(c1<0.){c1=0.0;}         //éléüä÷êî
 			// D[i][j]=D0*exp(-Q0/T[i][j]/T0)/Dm*cVa[i][j]/0.015;           //ñ≥éüå≥âª
 			D[i][j]=D0*exp(-Q0/T[i][j]/T0)/Dm;
 
@@ -330,8 +331,9 @@ int main(void){
 			kai2_surf[i][j]=-2.0*kapa_c2*(c2h[ip][j]+c2h[im][j]+c2h[i][jp]+c2h[i][jm]-4.0*c2);    //ñ≥éüå≥âª
 
 			//--- âªäwägéUÉ|ÉeÉìÉVÉÉÉãÇÃåvéZ --------------------------------------------
-			kai2_chem[i][j]=(log(c2)-log(c1))+L12*(c1-c2);                           //ñ≥éüå≥âª
+			// kai2_chem[i][j]=(log(c2)-log(c1))+L12*(c1-c2); //ê≥ë•ónëÃ              //ñ≥éüå≥âª
 			//kai2_chem[i][j]=L12*(c1-c2);
+			kai2_chem[i][j]=(L12/3.)*c1*c2*(c1-c2); //éléüä÷êî
 
 			//--- ägéUÉ|ÉeÉìÉVÉÉÉãÇÃåvéZ --------------------------------------------
 			c2k[i][j]=kai2_chem[i][j]+kai2_surf[i][j];
@@ -363,8 +365,8 @@ int main(void){
 		for(i=0;i<=ndm;i++){
 			for(j=0;j<=ndm;j++){
 				c2h[i][j]=c2h2[i][j]-dc2a;
-				if(c2h[i][j]<=0.){c2h[i][j]=0.00001;}
-				if(c2h[i][j]>=1.){c2h[i][j]=0.99999;}
+				if(c2h[i][j]<0.){c2h[i][j]=0.;}
+				if(c2h[i][j]>1.){c2h[i][j]=1.;}
 	    	}
 		}
 	}
@@ -372,8 +374,8 @@ int main(void){
 	for(i=0;i<=ndm;i++){
 		for(j=0;j<=ndm;j++){
 			c2h[i][j]=c2h2[i][j];
-			if(c2h[i][j]<=0.){c2h[i][j]=0.00001;}
-			if(c2h[i][j]>=1.){c2h[i][j]=0.99999;}
+			if(c2h[i][j]<0.){c2h[i][j]=0.;}
+			if(c2h[i][j]>1.){c2h[i][j]=1.;}
 		}
 	}
 
@@ -536,7 +538,8 @@ void set_init_conc(){
 	double xmin, xmax, ymin, ymax;
  	srand(time(NULL)); // óêêîèâä˙âª
 
-	ceM=0.00001;  ceP=0.99999;
+	// ceM=0.00001;  ceP=0.99999;
+	ceM=0.;  ceP=1.;
 	// ceM=0.07;  ceP=0.93; //Ç»Ç∫0Ç∆1Ç≈Ç»Ç¢ÇÃÇ©
 
 	for(i=0;i<=ndm;i++){
