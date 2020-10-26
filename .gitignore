@@ -8,6 +8,7 @@ test.dat
 test0.dat
 exec
 exec_fft
+exec_fft_square
 colorbar/
 
 .vscode/settings.json

@@ -11,6 +11,11 @@ run_fix_fft:
 	rm -f dc_fix/bin/*
 	./dc_fix/exec_fft
 
+run_fix_fft_square:
+	g++ -o dc_fix/exec_fft_square dc_fix/fft_square.cpp
+	rm -f dc_fix/bin/*
+	./dc_fix/exec_fft_square
+
 run_dc_dev:
 	g++ -o dc_dev/exec dc_dev/src.cpp
 	rm -f dc_dev/bin/*
