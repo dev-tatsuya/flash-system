@@ -617,6 +617,22 @@ void set_init_conc(){
 		}
 	}
 
+	int t;
+	double c2h2[ND][ND];
+	for (t = 0; t < 10; t++){
+		for(i=0;i<=ndm;i++){
+			for(j=0;j<=ndm;j++){
+				c2h2[i][j]=c2h[i][j]+0.2*(c2h[(i+1)%ND][j]+c2h[i][(j+1)%ND]+c2h[(i-1+ND)%ND][j]+c2h[i][(j-1+ND)%ND]-4.*c2h[i][j]);
+			}
+		}
+
+		for(i=0;i<=ndm;i++){
+			for(j=0;j<=ndm;j++){
+				c2h[i][j]=c2h2[i][j];
+			}
+		}
+	}
+
 	sum=0.; for(i=0;i<=ndm;i++){ for(j=0;j<=ndm;j++){ sum+=c2h[i][j]; } }
 	c2a=sum/nd/nd;
 	//printf("c2a = %f  \n", c2a);
