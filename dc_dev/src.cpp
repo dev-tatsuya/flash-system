@@ -48,7 +48,7 @@ double sigma[ND][ND];
 double VVa[VAVA]; //構造空孔濃度 なぜ1300個？
 double jI[ND][ND]; //電流？
 
-double ramuda[ND][ND]; //λ/(ρ×Cp) = α
+double lambda[ND][ND];
 
 double ceM, ceP;
 double cmax, cmin;
@@ -73,7 +73,6 @@ void datsave_yVa();
 void datsave_si();
 void datsave_D();
 void datsave_I();
-void datsave_ramuda();
 
 void datin();
 void datin2();
@@ -431,7 +430,7 @@ int main(void){
 		for(j=0;j<=ndm;j++){
 			den[i][j] = 6.05e3*c2h[i][j]+0.232*(1.0-c2h[i][j]);
 			Cp[i][j] = (6.05e3*0.66e3*c2h[i][j]+0.232*1227.0*(1.0-c2h[i][j]))*b1*b1*b1/KB;
-			ramuda[i][j] = (3.0/(6.05e3*0.66e3)*c2h[i][j]+0.0891/(0.232*1227.0)*(1.0-c2h[i][j]))*b1/Dm/KB/(b1*b1*b1/KB);
+			lambda[i][j] = 3.0 * c2h[i][j] + 0.0891 * (1.0-c2h[i][j]);
 		}
 	}
 
@@ -451,16 +450,16 @@ int main(void){
 			if(i==ndm){ip=ndm;}  if(i==0){im=0;}
 			if(j==ndm){jp=ndm;}  if(j==0){jm=0;}
 
-			Trddtt[i][j]= 0.5*(ramuda[i][j]+ramuda[ip][j])*(T[ip][j]-T[i][j])
-						- 0.5*(ramuda[i][j]+ramuda[im][j])*(T[i][j]-T[im][j])
-						+ 0.5*(ramuda[i][j]+ramuda[i][jp])*(T[i][jp]-T[i][j])
-						- 0.5*(ramuda[i][j]+ramuda[i][jm])*(T[i][j]-T[i][jm]);
+			Trddtt[i][j]= 0.5*(lambda[i][j]+lambda[ip][j])*(T[ip][j]-T[i][j])
+						- 0.5*(lambda[i][j]+lambda[im][j])*(T[i][j]-T[im][j])
+						+ 0.5*(lambda[i][j]+lambda[i][jp])*(T[i][jp]-T[i][j])
+						- 0.5*(lambda[i][j]+lambda[i][jm])*(T[i][j]-T[i][jm]);
 		}
 	}
 
 	for(i=0;i<=ndm;i++){
 		for(j=0;j<=ndm;j++){
-			T[i][j]=T[i][j]+Trddtt[i][j]*delt;
+			T[i][j]=T[i][j]+Trddtt[i][j]/Cp[i][j]*delt;
 			if(T[i][j]*T0>2000.0){T[i][j]=2000.0/T0;}
 			if(T[i][j]*T0<700.0){T[i][j]=700.0/T0;}
 		}
@@ -516,7 +515,6 @@ int main(void){
 		datsave_si();
 		datsave_D();
 		datsave_I();
-		datsave_ramuda();
 	}
 
 	time1=time1+1.0;
@@ -883,22 +881,6 @@ void datsave_I()
 			for (j = 0; j < nd; j++) {
 				jI00[i][j]=jI[i][j]*e0*Dm;
 				fwrite(&jI00[i][j], sizeof(double), 1, stream);
-			}
-		}
-		//fprintf(stream, "\n");	//改行の書き込み
-
-	fclose(stream);					//ファイルをクローズ
-}
-
-void datsave_ramuda()
-{
-	FILE		*stream;		//ストリームのポインタ設定
-
-	stream = fopen("dc_dev/bin/test_ramuda.bin", "ab");	//書き込む先のファイルを追記方式でオープン
-
-		for (i = 0; i < nd; i++) {
-			for (j = 0; j < nd; j++) {
-				fwrite(&ramuda[i][j], sizeof(double), 1, stream);
 			}
 		}
 		//fprintf(stream, "\n");	//改行の書き込み
