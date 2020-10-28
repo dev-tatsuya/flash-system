@@ -430,7 +430,7 @@ int main(void){
 		for(j=0;j<=ndm;j++){
 			den[i][j] = 6.05e3*c2h[i][j]+0.232*(1.0-c2h[i][j]);
 			Cp[i][j] = (6.05e3*0.66e3*c2h[i][j]+0.232*1227.0*(1.0-c2h[i][j]))*b1*b1*b1/KB;
-			lambda[i][j] = 3.0 * c2h[i][j] + 0.0891 * (1.0-c2h[i][j]);
+			lambda[i][j] = (3.0 * c2h[i][j] + 0.0891 * (1.0-c2h[i][j]))*b1/Dm/KB;
 		}
 	}
 
